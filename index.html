@@ -100,7 +100,83 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/05/懒加载/" data-id="cjgt2cc9y00049wzpgqzm55k4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/04/05/懒加载/" data-id="cjgt4ou5l00084czpp8x42d19" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ES6 Proxy 与 Reflect" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/22/ES6 Proxy 与 Reflect/" class="article-date">
+  <time datetime="2018-03-21T16:00:00.000Z" itemprop="datePublished">2018-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/ES6 Proxy 与 Reflect/">ES6 Proxy 与 Reflect</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-Proxy-与-Reflect"><a href="#1-Proxy-与-Reflect" class="headerlink" title="1.Proxy 与 Reflect"></a>1.Proxy 与 Reflect</h3><h4 id="1-1-Proxy"><a href="#1-1-Proxy" class="headerlink" title="1.1 Proxy"></a>1.1 Proxy</h4><p>Proxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程。Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Proxy</span>(&#123;&#125;, &#123;</span><br><span class="line">  get: <span class="function"><span class="keyword">function</span> (<span class="params">target, key, receiver</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`getting <span class="subst">$&#123;key&#125;</span>!`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, key, receiver);</span><br><span class="line">  &#125;,</span><br><span class="line">  set: <span class="function"><span class="keyword">function</span> (<span class="params">target, key, value, receiver</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`setting <span class="subst">$&#123;key&#125;</span>!`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.set(target, key, value, receiver);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>上面代码对一个空对象架设了一层拦截，重定义了属性的读取（get）和设置（set）行为。对设置了拦截行为的对象obj，去读写它的属性，就会得到下面的结果。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">obj.count = <span class="number">1</span></span><br><span class="line"><span class="comment">//  setting count!</span></span><br><span class="line">++obj.count</span><br><span class="line"><span class="comment">//  getting count!</span></span><br><span class="line"><span class="comment">//  setting count!</span></span><br><span class="line"><span class="comment">//  2</span></span><br></pre></td></tr></table></figure>
+<p>上面代码说明，Proxy 实际上重载（overload）了点运算符，即用自己的定义覆盖了语言的原始定义。</p>
+<p>ES6 原生提供 Proxy 构造函数，用来生成 Proxy 实例。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler);</span><br></pre></td></tr></table></figure></p>
+<p>Proxy 对象的所有用法，都是上面这种形式，不同的只是handler参数的写法。其中，new Proxy()表示生成一个Proxy实例，target参数表示所要拦截的目标对象，handler参数也是一个对象，用来定制拦截行为。<br>下面是另一个拦截读取属性行为的例子。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(&#123;&#125;, &#123;</span><br><span class="line">  get: <span class="function"><span class="keyword">function</span>(<span class="params">target, property</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">35</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">proxy.time <span class="comment">// 35</span></span><br><span class="line">proxy.name <span class="comment">// 35</span></span><br><span class="line">proxy.title <span class="comment">// 35</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，作为构造函数，Proxy接受两个参数。第一个参数是所要代理的目标对象（上例是一个空对象），即如果没有Proxy的介入，操作原来要访问的就是这个对象；第二个参数是一个配置对象，对于每一个被代理的操作，需要提供一个对应的处理函数，该函数将拦截对应的操作。比如，上面代码中，配置对象有一个get方法，用来拦截对目标对象属性的访问请求。get方法的两个参数分别是目标对象和所要访问的属性。可以看到，由于拦截函数总是返回35，所以访问任何属性都得到35。</p>
+<p>注意，要使得Proxy起作用，必须针对Proxy实例（上例是proxy对象）进行操作，而不是针对目标对象（上例是空对象）进行操作。</p>
+<p>如果handler没有设置任何拦截，那就等同于直接通向原对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> target = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> handler = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler);</span><br><span class="line">proxy.a = <span class="string">'b'</span>;</span><br><span class="line">target.a <span class="comment">// "b"</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，handler是一个空对象，没有任何拦截效果，访问handler就等同于访问target。</p>
+<p>一个技巧是将Proxy对象，设置到object.proxy属性，从而可以在object对象上调用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> object = &#123; <span class="attr">proxy</span>: <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler) &#125;;</span><br></pre></td></tr></table></figure>
+<p>Proxy 实例也可以作为其他对象的原型对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(&#123;&#125;, &#123;</span><br><span class="line">  get: <span class="function"><span class="keyword">function</span>(<span class="params">target, property</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">35</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = <span class="built_in">Object</span>.create(proxy);</span><br><span class="line">obj.time <span class="comment">// 35</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，proxy对象是obj对象的原型，obj对象本身并没有time属性，所以根据原型链，会在proxy对象上读取该属性，导致被拦截。</p>
+<p>同一个拦截器函数，可以设置拦截多个操作。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> handler = &#123;</span><br><span class="line">  get: <span class="function"><span class="keyword">function</span>(<span class="params">target, name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (name === <span class="string">'prototype'</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Object</span>.prototype;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Hello, '</span> + name;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  apply: <span class="function"><span class="keyword">function</span>(<span class="params">target, thisBinding, args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> args[<span class="number">0</span>];</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  construct: <span class="function"><span class="keyword">function</span>(<span class="params">target, args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="attr">value</span>: args[<span class="number">1</span>]&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fproxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(<span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;, handler);</span><br><span class="line"></span><br><span class="line">fproxy(<span class="number">1</span>, <span class="number">2</span>) <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">new</span> fproxy(<span class="number">1</span>,<span class="number">2</span>) <span class="comment">// &#123;value: 2&#125;</span></span><br><span class="line">fproxy.prototype === <span class="built_in">Object</span>.prototype <span class="comment">// true</span></span><br><span class="line">fproxy.foo <span class="comment">// "Hello, foo"</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="1-2-Reflect"><a href="#1-2-Reflect" class="headerlink" title="1.2 Reflect"></a>1.2 Reflect</h4><p>Reflect对象与Proxy对象一样，也是ES6为了操作对象而提供的新API。Reflect对象的设计目的有这样几个。</p>
+<p>（1） 将Object对象的一些明显属于语言内部的方法（比如Object.defineProperty），放到Reflect对象上。现阶段，某些方法同时在Object和Reflect对象上部署，未来的新方法将只部署在Reflect对象上。</p>
+<p>（2） 修改某些Object方法的返回结果，让其变得更合理。比如，Object.defineProperty(obj, name, desc)在无法定义属性时，会抛出一个错误，而Reflect.defineProperty(obj, name, desc)则会返回false。</p>
+<p>// 老写法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(target, property, attributes);</span><br><span class="line">  <span class="comment">// success</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="comment">// failure</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新写法</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">Reflect</span>.defineProperty(target, property, attributes)) &#123;</span><br><span class="line">  <span class="comment">// success</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// failure</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3） 让Object操作都变成函数行为。某些Object操作是命令式，比如name in obj和delete obj[name]，而Reflect.has(obj, name)和Reflect.deleteProperty(obj, name)让它们变成了函数行为。</p>
+<p>// 老写法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'assign'</span> <span class="keyword">in</span> <span class="built_in">Object</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>// 新写法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Reflect</span>.has(<span class="built_in">Object</span>, <span class="string">'assign'</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>（4）Reflect对象的方法与Proxy对象的方法一一对应，只要是Proxy对象的方法，就能在Reflect对象上找到对应的方法。这就让Proxy对象可以方便地调用对应的Reflect方法，完成默认行为，作为修改行为的基础。也就是说，不管Proxy怎么修改默认行为，你总可以在Reflect上获取默认行为。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Proxy</span>(target, &#123;</span><br><span class="line">  set: <span class="function"><span class="keyword">function</span>(<span class="params">target, name, value, receiver</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> success = <span class="built_in">Reflect</span>.set(target,name, value, receiver);</span><br><span class="line">    <span class="keyword">if</span> (success) &#123;</span><br><span class="line">      log(<span class="string">'property '</span> + name + <span class="string">' on '</span> + target + <span class="string">' set to '</span> + value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> success;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>上面代码中，Proxy方法拦截target对象的属性赋值行为。它采用Reflect.set方法将值赋值给对象的属性，然后再部署额外的功能。</p>
+<p>下面是另一个例子。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> loggedObj = <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">  get(target, name) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'get'</span>, target, name);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, name);</span><br><span class="line">  &#125;,</span><br><span class="line">  deleteProperty(target, name) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'delete'</span> + name);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.deleteProperty(target, name);</span><br><span class="line">  &#125;,</span><br><span class="line">  has(target, name) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'has'</span> + name);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.has(target, name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>上面代码中，每一个Proxy对象的拦截操作（get、delete、has），内部都调用对应的Reflect方法，保证原生行为能够正常执行。添加的工作，就是将每一个操作输出一行日志。</p>
+<p>有了Reflect对象以后，很多操作会更易读。</p>
+<p>// 老写法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.apply.call(<span class="built_in">Math</span>.floor, <span class="literal">undefined</span>, [<span class="number">1.75</span>]) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>// 新写法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Reflect</span>.apply(<span class="built_in">Math</span>.floor, <span class="literal">undefined</span>, [<span class="number">1.75</span>]) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/22/ES6 Proxy 与 Reflect/" data-id="cjgt4ou5a00014czpszbe0645" class="article-share-link">Share</a>
       
       
     </footer>
@@ -164,7 +240,555 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/15/柯里化与偏函数/" data-id="cjgt2cc9z00059wzp6u1satym" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/03/15/柯里化与偏函数/" data-id="cjgt4ou5n000a4czpzl4uhvjh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-二叉树（unfinished）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/25/二叉树（unfinished）/" class="article-date">
+  <time datetime="2017-10-24T16:00:00.000Z" itemprop="datePublished">2017-10-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/25/二叉树（unfinished）/">数据结构——二叉树（unfinished）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>树是一种比较重要的数据结构，尤其是二叉树。二叉树是一种特殊的树，在二叉树中每个节点最多有两个子节点，一般称为左子节点和右子节点（或左孩子和右孩子），并且二叉树的子树有左右之分，其次序不能任意颠倒。二叉树是递归定义的，因此，与二叉树有关的题目基本都可以用递归思想解决，当然有些题目非递归解法也应该掌握，如非递归遍历节点等等。本文努力对二叉树相关题目做一个较全的整理总结。<br>二叉树节点定义如下：  </p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        self.val = x</span><br><span class="line">        self.left = <span class="keyword">None</span></span><br><span class="line">        self.right = <span class="keyword">None</span></span><br></pre></td></tr></table></figure>
+<h4 id="题目列表："><a href="#题目列表：" class="headerlink" title="题目列表："></a>题目列表：</h4><ol>
+<li>求二叉树中的节点个数</li>
+<li>求二叉树的深度</li>
+<li>前序遍历，中序遍历，后序遍历<br>4.分层遍历二叉树（按层次从上往下，从左往右）</li>
+<li>将二叉查找树变为有序的双向链表</li>
+<li>求二叉树第K层的节点个数</li>
+<li>求二叉树中叶子节点的个数</li>
+<li>判断两棵二叉树是否结构相同</li>
+<li>判断二叉树是不是平衡二叉树</li>
+<li>求二叉树的镜像</li>
+<li>求二叉树中两个节点的最低公共祖先节点</li>
+<li>求二叉树中节点的最大距离</li>
+<li>由前序遍历序列和中序遍历序列重建二叉树<br>14.判断二叉树是不是完全二叉树</li>
+</ol>
+<h4 id="详细解答"><a href="#详细解答" class="headerlink" title="详细解答"></a>详细解答</h4><h5 id="1-求二叉树中的节点个数"><a href="#1-求二叉树中的节点个数" class="headerlink" title="1. 求二叉树中的节点个数"></a>1. 求二叉树中的节点个数</h5><h6 id="递归解法："><a href="#递归解法：" class="headerlink" title="递归解法："></a>递归解法：</h6><ul>
+<li>如果二叉树为空，节点个数为0</li>
+<li>如果二叉树不为空，二叉树节点个数=左子树节点个数+右子树节点个数+1</li>
+</ul>
+<h6 id="参考代码如下："><a href="#参考代码如下：" class="headerlink" title="参考代码如下："></a>参考代码如下：</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">GetNodeNum</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        left=self.GetNodeNum(root.left)</span><br><span class="line">        right=self.GetNodeNum(root.right)</span><br><span class="line">        <span class="keyword">return</span> left+right+<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h5 id="2-求二叉树的深度"><a href="#2-求二叉树的深度" class="headerlink" title="2. 求二叉树的深度"></a>2. 求二叉树的深度</h5><h6 id="递归解法：-1"><a href="#递归解法：-1" class="headerlink" title="递归解法："></a>递归解法：</h6><ul>
+<li>如果二叉树为空,二叉树的深度为0</li>
+<li>如果二叉树不为空,二叉树的深度=max(左子树深度，右子树深度)+1</li>
+</ul>
+<h6 id="参考代码如下：-1"><a href="#参考代码如下：-1" class="headerlink" title="参考代码如下："></a>参考代码如下：</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        left=self.maxDepth(root.left)</span><br><span class="line">        right=self.maxDepth(root.right)</span><br><span class="line">        <span class="keyword">return</span> left+<span class="number">1</span> <span class="keyword">if</span> left &gt; right <span class="keyword">else</span> right+<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h5 id="3-前序遍历，中序遍历，后序遍历"><a href="#3-前序遍历，中序遍历，后序遍历" class="headerlink" title="3. 前序遍历，中序遍历，后序遍历"></a>3. 前序遍历，中序遍历，后序遍历</h5><h6 id="前序遍历递归解法："><a href="#前序遍历递归解法：" class="headerlink" title="前序遍历递归解法："></a>前序遍历递归解法：</h6><ul>
+<li>如果二叉树为空，空操作</li>
+<li>如果二叉树不为空，访问根节点，前序遍历左子树，前序遍历右子树</li>
+</ul>
+<h6 id="参考代码如下：-2"><a href="#参考代码如下：-2" class="headerlink" title="参考代码如下："></a>参考代码如下：</h6><ul>
+<li><p>递归写法</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">PreOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">print</span> root.val   // 访问根节点</span><br><span class="line">        self.PreOrderTraverse(root.left)  //前序遍历左子树</span><br><span class="line">        self.PreOrderTraverse(root.right)   //  前序遍历右子树</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非递归写法<br>preOrder每次都将遇到的节点压入栈，当左子树遍历完毕后才从栈中弹出最后一个访问的节点，访问其右子树。在同一层中，不可能同时有两个节点压入栈，因此栈的大小空间为O(h)，h为二叉树高度。时间方面，每个节点都被压入栈一次，弹出栈一次，访问一次，复杂度为O(n)。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">PreOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myStack = []</span><br><span class="line">        node = root</span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">or</span> myStack:</span><br><span class="line">            <span class="keyword">while</span> node:</span><br><span class="line">                <span class="comment"># 从根节点开始，一直找它的左子树</span></span><br><span class="line">                <span class="keyword">print</span> node.val</span><br><span class="line">                myStack.append(node)</span><br><span class="line">                node = node.left</span><br><span class="line">            <span class="comment"># while结束表示当前节点node为空，即前一个节点没有左子树了</span></span><br><span class="line">            node = myStack.pop()</span><br><span class="line">            <span class="comment"># 开始查看它的右子树</span></span><br><span class="line">            node = node.right</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h6 id="中序遍历递归解法"><a href="#中序遍历递归解法" class="headerlink" title="中序遍历递归解法"></a>中序遍历递归解法</h6><ul>
+<li>如果二叉树为空，空操作。</li>
+<li>如果二叉树不为空，中序遍历左子树，访问根节点，中序遍历右子树</li>
+</ul>
+<h6 id="参考代码如下：-3"><a href="#参考代码如下：-3" class="headerlink" title="参考代码如下："></a>参考代码如下：</h6><ul>
+<li><p>递归写法</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">InOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.InOrderTraverse(root.left)  //前序遍历左子树</span><br><span class="line">        <span class="keyword">print</span> root.val   // 访问根节点</span><br><span class="line">        self.InOrderTraverse(root.right)   //  前序遍历右子树</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非递归写法<br>根据上面的先序遍历，可以类似的构造出中序遍历。仔细想一下，只有第一种方法改过来时最方便的。需要的改动仅仅调换一下节点访问的次序，先序是先访问，再入栈；而中序则是先入栈，弹栈后再访问。代码如下。时间复杂度与空间复杂度同先序一致。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">PreOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myStack = []</span><br><span class="line">        node = root</span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">or</span> myStack:</span><br><span class="line">            <span class="keyword">while</span> node:</span><br><span class="line">                <span class="comment"># 从根节点开始，一直找它的左子树</span></span><br><span class="line">                myStack.append(node)</span><br><span class="line">                node = node.left</span><br><span class="line">            <span class="comment"># while结束表示当前节点node为空，即前一个节点没有左子树了</span></span><br><span class="line">            node = myStack.pop()</span><br><span class="line">            <span class="keyword">print</span> node.val</span><br><span class="line">            <span class="comment"># 开始查看它的右子树</span></span><br><span class="line">            node = node.right</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h6 id="后序遍历递归解法"><a href="#后序遍历递归解法" class="headerlink" title="后序遍历递归解法"></a>后序遍历递归解法</h6><ul>
+<li>如果二叉树为空，空操作</li>
+<li>如果二叉树不为空，后序遍历左子树，后序遍历右子树，访问根节点  </li>
+</ul>
+<h6 id="参考代码如下：-4"><a href="#参考代码如下：-4" class="headerlink" title="参考代码如下："></a>参考代码如下：</h6><ul>
+<li><p>递归写法</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">PostOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.PostOrderTraverse(root.left)  //前序遍历左子树</span><br><span class="line">        self.PostOrderTraverse(root.right)   //  前序遍历右子树</span><br><span class="line">        <span class="keyword">print</span> root.val   // 访问根节点</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非递归写法<br>从直觉上来说，后序遍历对比中序遍历难度要增大很多。因为中序遍历节点序列有一点的连续性，而后续遍历则感觉有一定的跳跃性。先左，再右，最后才中间节点；访问左子树后，需要跳转到右子树，右子树访问完毕了再回溯至根节点并访问之，代码如下：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">PreOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line">        myStack = []</span><br><span class="line">        node = root</span><br><span class="line">        myStack1.append(node)</span><br><span class="line">        <span class="keyword">while</span> myStack:</span><br><span class="line">        <span class="comment"># 这个while循环的功能是找出后序遍历的逆序，存在res里面</span></span><br><span class="line">            node = myStack.pop()</span><br><span class="line">            <span class="keyword">if</span> node.left:</span><br><span class="line">                myStack.append(node.left)</span><br><span class="line">            <span class="keyword">if</span> node.right:</span><br><span class="line">                myStack.append(node.right)</span><br><span class="line">            res.append(node.val)</span><br><span class="line">        <span class="comment"># 将res中的元素出栈，即为后序遍历次序</span></span><br><span class="line">        <span class="keyword">return</span> res[::<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="4-分层遍历二叉树（按层次从上往下，从左往右）"><a href="#4-分层遍历二叉树（按层次从上往下，从左往右）" class="headerlink" title="4.分层遍历二叉树（按层次从上往下，从左往右）"></a>4.分层遍历二叉树（按层次从上往下，从左往右）</h4><p>相当于广度优先搜索，使用队列实现。队列初始化，将根节点压入队列。当队列不为空，进行如下操作：弹出一个节点，访问，若左子节点或右子节点不为空，将其压入队列。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">PreOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myQueue=[]</span><br><span class="line">        node=root</span><br><span class="line">        myQueue.append(node)</span><br><span class="line">        <span class="keyword">while</span> myQueue:</span><br><span class="line">            node=myQueue.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">print</span> node.val</span><br><span class="line">            <span class="keyword">if</span> node.left:</span><br><span class="line">                myQueue.append(node.left)</span><br><span class="line">            <span class="keyword">if</span> node.right:</span><br><span class="line">                myQueue.append(node.right)</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-将二叉查找树变为有序的双向链表"><a href="#5-将二叉查找树变为有序的双向链表" class="headerlink" title="5. 将二叉查找树变为有序的双向链表"></a>5. 将二叉查找树变为有序的双向链表</h4><p>要求不能创建新节点，只调整指针。</p>
+<h5 id="递归解法：-2"><a href="#递归解法：-2" class="headerlink" title="递归解法："></a>递归解法：</h5><ul>
+<li>如果二叉树查找树为空，不需要转换，对应双向链表的第一个节点是NULL，最后一个节点是NULL</li>
+<li>如果二叉查找树不为空：<br>如果左子树为空，对应双向有序链表的第一个节点是根节点，左边不需要其他操作；<br>如果左子树不为空，转换左子树，二叉查找树对应双向有序链表的第一个节点就是左子树转换后双向有序链表的第一个节点，同时将根节点和左子树转换后的双向有序链 表的最后一个节点连接；<br>如果右子树为空，对应双向有序链表的最后一个节点是根节点，右边不需要其他操作；<br>如果右子树不为空，对应双向有序链表的最后一个节点就是右子树转换后双向有序链表的最后一个节点，同时将根节点和右子树转换后的双向有序链表的第一个节点连接。  </li>
+</ul>
+<h5 id="参考代码如下：-5"><a href="#参考代码如下：-5" class="headerlink" title="参考代码如下："></a>参考代码如下：</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="6-求二叉树第K层的节点个数"><a href="#6-求二叉树第K层的节点个数" class="headerlink" title="6. 求二叉树第K层的节点个数"></a>6. 求二叉树第K层的节点个数</h4><h5 id="递归解法：-3"><a href="#递归解法：-3" class="headerlink" title="递归解法："></a>递归解法：</h5><ul>
+<li>如果二叉树为空或者k&lt;1返回0</li>
+<li>如果二叉树不为空并且k==1，返回1</li>
+<li>如果二叉树不为空且k&gt;1，返回左子树中k-1层的节点个数与右子树k-1层节点个数之和</li>
+</ul>
+<h5 id="参考代码如下：-6"><a href="#参考代码如下：-6" class="headerlink" title="参考代码如下："></a>参考代码如下：</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(Object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">GetNodeNumKthLevel</span><span class="params">(self,root,k)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :type k: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root <span class="keyword">or</span> k &lt; <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> root <span class="keyword">and</span> k == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        leftSubTree=self.GetNodeNumKthLevel(root.left,k<span class="number">-1</span>)</span><br><span class="line">        rightSubTree=self.GetNodeNumKthLevel(root.right,k<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> leftSubTree+rightSubTree</span><br></pre></td></tr></table></figure>
+<h4 id="7-求二叉树中叶子节点的个数"><a href="#7-求二叉树中叶子节点的个数" class="headerlink" title="7. 求二叉树中叶子节点的个数"></a>7. 求二叉树中叶子节点的个数</h4><h5 id="递归解法：-4"><a href="#递归解法：-4" class="headerlink" title="递归解法："></a>递归解法：</h5><ul>
+<li>如果二叉树为空，返回0</li>
+<li>如果二叉树不为空且左右子树为空，返回1</li>
+<li>如果二叉树不为空，且左右子树不同时为空，返回左子树中叶子节点个数加上右子树中叶子节点个数  </li>
+</ul>
+<h5 id="参考代码如下：-7"><a href="#参考代码如下：-7" class="headerlink" title="参考代码如下："></a>参考代码如下：</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(Object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">GetLeafNodeNum</span><span class="params">(self,root)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    :type root: TreeNode</span></span><br><span class="line"><span class="string">    :rtype: int</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> root <span class="keyword">and</span> <span class="keyword">not</span> root.left <span class="keyword">and</span> <span class="keyword">not</span> root.right:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="comment"># 分别计算左右子树的叶子结点</span></span><br><span class="line">    leftLeaf=self.GetLeafNodeNum(root.left)</span><br><span class="line">    rightLeaf=self.GetLeafNodeNum(root.right)</span><br><span class="line">    <span class="keyword">return</span> leftLeaf+rightLeaf</span><br></pre></td></tr></table></figure>
+<h4 id="8-判断两棵二叉树是否结构相同"><a href="#8-判断两棵二叉树是否结构相同" class="headerlink" title="8. 判断两棵二叉树是否结构相同"></a>8. 判断两棵二叉树是否结构相同</h4><p>不考虑数据内容。结构相同意味着对应的左子树和对应的右子树都结构相同。  </p>
+<h5 id="递归解法：-5"><a href="#递归解法：-5" class="headerlink" title="递归解法："></a>递归解法：</h5><ul>
+<li>如果两棵二叉树都为空，返回真</li>
+<li>如果两棵二叉树一棵为空，另一棵不为空，返回假</li>
+<li>如果两棵二叉树都不为空，如果对应的左子树和右子树都同构返回真，其他返回假  </li>
+</ul>
+<h5 id="参考代码如下：-8"><a href="#参考代码如下：-8" class="headerlink" title="参考代码如下："></a>参考代码如下：</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(Object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">StructureCmp</span><span class="params">(self,root1,root2)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root1,root2: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: Boolean</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root1 <span class="keyword">and</span> <span class="keyword">not</span> root2:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root1 <span class="keyword">or</span> <span class="keyword">not</span> root2:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">        leftRes=self.StructureCmp(root1.left,root2.left)</span><br><span class="line">        rightRes=self.StructureCmp(root1.right,root2.right)</span><br><span class="line">        <span class="keyword">return</span> leftRes <span class="keyword">and</span> rightRes</span><br></pre></td></tr></table></figure>
+<h4 id="9-判断二叉树是不是平衡二叉树"><a href="#9-判断二叉树是不是平衡二叉树" class="headerlink" title="9. 判断二叉树是不是平衡二叉树"></a>9. 判断二叉树是不是平衡二叉树</h4><h5 id="递归解法：-6"><a href="#递归解法：-6" class="headerlink" title="递归解法："></a>递归解法：</h5><ul>
+<li>如果二叉树为空，返回真</li>
+<li>如果二叉树不为空，如果左子树和右子树都是AVL树并且左子树和右子树高度相差不大于1，返回真，其他返回假</li>
+</ul>
+<h5 id="参考代码："><a href="#参考代码：" class="headerlink" title="参考代码："></a>参考代码：</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(Object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">IsAVL</span><span class="params">(self,root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: Boolean</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">        leftSubTree=self.IsAVL(root.left)</span><br><span class="line">        rightSubTree=self.IsAVL(root.right)</span><br><span class="line">        <span class="keyword">return</span> leftSubTree <span class="keyword">and</span> rightSubTree</span><br></pre></td></tr></table></figure>
+<p>[cpp] view plain copy</p>
+<ol>
+<li>bool IsAVL(BinaryTreeNode * pRoot, int &amp; height)  </li>
+<li>{  </li>
+<li>if(pRoot == NULL) // 空树，返回真  </li>
+<li>{  </li>
+<li>height = 0;  </li>
+<li>return true;  </li>
+<li>}  </li>
+<li>int heightLeft;  </li>
+<li>bool resultLeft = IsAVL(pRoot-&gt;m_pLeft, heightLeft);  </li>
+<li>int heightRight;  </li>
+<li>bool resultRight = IsAVL(pRoot-&gt;m_pRight, heightRight);  </li>
+<li>if(resultLeft &amp;&amp; resultRight &amp;&amp; abs(heightLeft - heightRight) &lt;= 1) // 左子树和右子树都是AVL，并且高度相差不大于1，返回真  </li>
+<li>{  </li>
+<li>height = max(heightLeft, heightRight) + 1;  </li>
+<li>return true;  </li>
+<li>}  </li>
+<li>else  </li>
+<li>{  </li>
+<li>height = max(heightLeft, heightRight) + 1;  </li>
+<li>return false;  </li>
+<li>}  </li>
+<li>}  <ol start="10">
+<li>求二叉树的镜像<br>递归解法：<br>（1）如果二叉树为空，返回空<br>（2）如果二叉树不为空，求左子树和右子树的镜像，然后交换左子树和右子树<br>参考代码如下：<br>[cpp] view plain copy</li>
+</ol>
+</li>
+<li>BinaryTreeNode <em> Mirror(BinaryTreeNode </em> pRoot)  </li>
+<li>{  </li>
+<li>if(pRoot == NULL) // 返回NULL  </li>
+<li>return NULL;  </li>
+<li>BinaryTreeNode * pLeft = Mirror(pRoot-&gt;m_pLeft); // 求左子树镜像  </li>
+<li>BinaryTreeNode * pRight = Mirror(pRoot-&gt;m_pRight); // 求右子树镜像  </li>
+<li>// 交换左子树和右子树  </li>
+<li>pRoot-&gt;m_pLeft = pRight;  </li>
+<li>pRoot-&gt;m_pRight = pLeft;  </li>
+<li>return pRoot;  </li>
+<li>}  <ol start="11">
+<li>求二叉树中两个节点的最低公共祖先节点<br>递归解法：<br>（1）如果两个节点分别在根节点的左子树和右子树，则返回根节点<br>（2）如果两个节点都在左子树，则递归处理左子树；如果两个节点都在右子树，则递归处理右子树<br>参考代码如下：<br>[cpp] view plain copy</li>
+</ol>
+</li>
+<li>bool FindNode(BinaryTreeNode <em> pRoot, BinaryTreeNode </em> pNode)  </li>
+<li>{  </li>
+<li>if(pRoot == NULL || pNode == NULL)  </li>
+<li>return false;  </li>
+<li></li>
+<li>if(pRoot == pNode)  </li>
+<li>return true;  </li>
+<li></li>
+<li>bool found = FindNode(pRoot-&gt;m_pLeft, pNode);  </li>
+<li>if(!found)  </li>
+<li>found = FindNode(pRoot-&gt;m_pRight, pNode);  </li>
+<li></li>
+<li>return found;  </li>
+<li>}  </li>
+<li></li>
+<li>BinaryTreeNode <em> GetLastCommonParent(BinaryTreeNode </em> pRoot,   </li>
+<li>BinaryTreeNode * pNode1,   </li>
+<li>BinaryTreeNode * pNode2)  </li>
+<li>{  </li>
+<li>if(FindNode(pRoot-&gt;m_pLeft, pNode1))  </li>
+<li>{  </li>
+<li>if(FindNode(pRoot-&gt;m_pRight, pNode2))  </li>
+<li>return pRoot;  </li>
+<li>else  </li>
+<li>return GetLastCommonParent(pRoot-&gt;m_pLeft, pNode1, pNode2);  </li>
+<li>}  </li>
+<li>else  </li>
+<li>{  </li>
+<li>if(FindNode(pRoot-&gt;m_pLeft, pNode2))  </li>
+<li>return pRoot;  </li>
+<li>else  </li>
+<li>return GetLastCommonParent(pRoot-&gt;m_pRight, pNode1, pNode2);  </li>
+<li>}  </li>
+<li>}<br>递归解法效率很低，有很多重复的遍历，下面看一下非递归解法。<br>非递归解法：<br>先求从根节点到两个节点的路径，然后再比较对应路径的节点就行，最后一个相同的节点也就是他们在二叉树中的最低公共祖先节点<br>参考代码如下：<br>[cpp] view plain copy</li>
+<li>bool GetNodePath(BinaryTreeNode <em> pRoot, BinaryTreeNode </em> pNode,   </li>
+<li>list<binarytreenode *=""> &amp; path)  </binarytreenode></li>
+<li>{  </li>
+<li>if(pRoot == pNode)  </li>
+<li>{     </li>
+<li>path.push_back(pRoot);  </li>
+<li>return true;  </li>
+<li>}  </li>
+<li>if(pRoot == NULL)  </li>
+<li>return false;  </li>
+<li>path.push_back(pRoot);  </li>
+<li>bool found = false;  </li>
+<li>found = GetNodePath(pRoot-&gt;m_pLeft, pNode, path);  </li>
+<li>if(!found)  </li>
+<li>found = GetNodePath(pRoot-&gt;m_pRight, pNode, path);  </li>
+<li>if(!found)  </li>
+<li>path.pop_back();  </li>
+<li>return found;  </li>
+<li>}  </li>
+<li>BinaryTreeNode <em> GetLastCommonParent(BinaryTreeNode </em> pRoot, BinaryTreeNode <em> pNode1, BinaryTreeNode </em> pNode2)  </li>
+<li>{  </li>
+<li>if(pRoot == NULL || pNode1 == NULL || pNode2 == NULL)  </li>
+<li>return NULL;  </li>
+<li>list&lt;BinaryTreeNode*&gt; path1;  </li>
+<li>bool bResult1 = GetNodePath(pRoot, pNode1, path1);  </li>
+<li>list&lt;BinaryTreeNode*&gt; path2;  </li>
+<li>bool bResult2 = GetNodePath(pRoot, pNode2, path2);  </li>
+<li>if(!bResult1 || !bResult2)   </li>
+<li>return NULL;  </li>
+<li>BinaryTreeNode * pLast = NULL;  </li>
+<li>list&lt;BinaryTreeNode*&gt;::const_iterator iter1 = path1.begin();  </li>
+<li>list&lt;BinaryTreeNode*&gt;::const_iterator iter2 = path2.begin();  </li>
+<li>while(iter1 != path1.end() &amp;&amp; iter2 != path2.end())  </li>
+<li>{  </li>
+<li>if(<em>iter1 == </em>iter2)  </li>
+<li>pLast = *iter1;  </li>
+<li>else  </li>
+<li>break;  </li>
+<li>iter1++;  </li>
+<li>iter2++;  </li>
+<li>}  </li>
+<li>return pLast;  </li>
+<li>}  </li>
+</ol>
+<p>在上述算法的基础上稍加变化即可求二叉树中任意两个节点的距离了。</p>
+<ol start="12">
+<li>求二叉树中节点的最大距离<br>即二叉树中相距最远的两个节点之间的距离。<br>递归解法：<br>（1）如果二叉树为空，返回0，同时记录左子树和右子树的深度，都为0<br>（2）如果二叉树不为空，最大距离要么是左子树中的最大距离，要么是右子树中的最大距离，要么是左子树节点中到根节点的最大距离+右子树节点中到根节点的最大距离，同时记录左子树和右子树节点中到根节点的最大距离。<br>参考代码如下：<br>[cpp] view plain copy<ol>
+<li>int GetMaxDistance(BinaryTreeNode * pRoot, int &amp; maxLeft, int &amp; maxRight)  </li>
+<li>{  </li>
+<li>// maxLeft, 左子树中的节点距离根节点的最远距离  </li>
+<li>// maxRight, 右子树中的节点距离根节点的最远距离  </li>
+<li>if(pRoot == NULL)  </li>
+<li>{  </li>
+<li>maxLeft = 0;  </li>
+<li>maxRight = 0;  </li>
+<li>return 0;  </li>
+<li>}  </li>
+<li>int maxLL, maxLR, maxRL, maxRR;  </li>
+<li>int maxDistLeft, maxDistRight;  </li>
+<li>if(pRoot-&gt;m_pLeft != NULL)  </li>
+<li>{  </li>
+<li>maxDistLeft = GetMaxDistance(pRoot-&gt;m_pLeft, maxLL, maxLR);  </li>
+<li>maxLeft = max(maxLL, maxLR) + 1;  </li>
+<li>}  </li>
+<li>else  </li>
+<li>{  </li>
+<li>maxDistLeft = 0;  </li>
+<li>maxLeft = 0;  </li>
+<li>}  </li>
+<li>if(pRoot-&gt;m_pRight != NULL)  </li>
+<li>{  </li>
+<li>maxDistRight = GetMaxDistance(pRoot-&gt;m_pRight, maxRL, maxRR);  </li>
+<li>maxRight = max(maxRL, maxRR) + 1;  </li>
+<li>}  </li>
+<li>else  </li>
+<li>{  </li>
+<li>maxDistRight = 0;  </li>
+<li>maxRight = 0;  </li>
+<li>}  </li>
+<li>return max(max(maxDistLeft, maxDistRight), maxLeft+maxRight);  </li>
+<li>}  </li>
+</ol>
+</li>
+<li>由前序遍历序列和中序遍历序列重建二叉树<br>二叉树前序遍历序列中，第一个元素总是树的根节点的值。中序遍历序列中，左子树的节点的值位于根节点的值的左边，右子树的节点的值位<br>于根节点的值的右边。<br>递归解法：<br>（1）如果前序遍历为空或中序遍历为空或节点个数小于等于0，返回NULL。<br>（2）创建根节点。前序遍历的第一个数据就是根节点的数据，在中序遍历中找到根节点的位置，可分别得知左子树和右子树的前序和中序遍<br>历序列，重建左右子树。<br>[cpp] view plain copy<ol>
+<li>BinaryTreeNode <em> RebuildBinaryTree(int</em> pPreOrder, int* pInOrder, int nodeNum)  </li>
+<li>{  </li>
+<li>if(pPreOrder == NULL || pInOrder == NULL || nodeNum &lt;= 0)  </li>
+<li>return NULL;  </li>
+<li>BinaryTreeNode * pRoot = new BinaryTreeNode;  </li>
+<li>// 前序遍历的第一个数据就是根节点数据  </li>
+<li>pRoot-&gt;m_nValue = pPreOrder[0];  </li>
+<li>pRoot-&gt;m_pLeft = NULL;  </li>
+<li>pRoot-&gt;m_pRight = NULL;  </li>
+<li>// 查找根节点在中序遍历中的位置，中序遍历中，根节点左边为左子树，右边为右子树  </li>
+<li>int rootPositionInOrder = -1;  </li>
+<li>for(int i = 0; i &lt; nodeNum; i++)  </li>
+<li>if(pInOrder[i] == pRoot-&gt;m_nValue)  </li>
+<li>{  </li>
+<li>rootPositionInOrder = i;  </li>
+<li>break;  </li>
+<li>}  </li>
+<li>if(rootPositionInOrder == -1)  </li>
+<li>{  </li>
+<li>throw std::exception(“Invalid input.”);  </li>
+<li>}  </li>
+<li>// 重建左子树  </li>
+<li>int nodeNumLeft = rootPositionInOrder;  </li>
+<li>int * pPreOrderLeft = pPreOrder + 1;  </li>
+<li>int * pInOrderLeft = pInOrder;  </li>
+<li>pRoot-&gt;m_pLeft = RebuildBinaryTree(pPreOrderLeft, pInOrderLeft, nodeNumLeft);  </li>
+<li>// 重建右子树  </li>
+<li>int nodeNumRight = nodeNum - nodeNumLeft - 1;  </li>
+<li>int * pPreOrderRight = pPreOrder + 1 + nodeNumLeft;  </li>
+<li>int * pInOrderRight = pInOrder + nodeNumLeft + 1;  </li>
+<li>pRoot-&gt;m_pRight = RebuildBinaryTree(pPreOrderRight, pInOrderRight, nodeNumRight);  </li>
+<li>return pRoot;  </li>
+<li>}<br>同样，有中序遍历序列和后序遍历序列，类似的方法可重建二叉树，但前序遍历序列和后序遍历序列不同恢复一棵二叉树，证明略。<br>14.判断二叉树是不是完全二叉树<br>若设二叉树的深度为h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，第 h 层所有的结点都连续集中在最左边，这就是完全<br>二叉树。<br>有如下算法，按层次（从上到下，从左到右）遍历二叉树，当遇到一个节点的左子树为空时，则该节点右子树必须为空，且后面遍历的节点左<br>右子树都必须为空，否则不是完全二叉树。<br>[cpp] view plain copy</li>
+<li>bool IsCompleteBinaryTree(BinaryTreeNode * pRoot)  </li>
+<li>{  </li>
+<li>if(pRoot == NULL)  </li>
+<li>return false;  </li>
+<li>queue<binarytreenode *=""> q;  </binarytreenode></li>
+<li>q.push(pRoot);  </li>
+<li>bool mustHaveNoChild = false;  </li>
+<li>bool result = true;  </li>
+<li>while(!q.empty())  </li>
+<li>{  </li>
+<li>BinaryTreeNode * pNode = q.front();  </li>
+<li>q.pop();  </li>
+<li>if(mustHaveNoChild) // 已经出现了有空子树的节点了，后面出现的必须为叶节点（左右子树都为空）  </li>
+<li>{  </li>
+<li>if(pNode-&gt;m_pLeft != NULL || pNode-&gt;m_pRight != NULL)  </li>
+<li>{  </li>
+<li>result = false;  </li>
+<li>break;  </li>
+<li>}  </li>
+<li>}  </li>
+<li>else  </li>
+<li>{  </li>
+<li>if(pNode-&gt;m_pLeft != NULL &amp;&amp; pNode-&gt;m_pRight != NULL)  </li>
+<li>{  </li>
+<li>q.push(pNode-&gt;m_pLeft);  </li>
+<li>q.push(pNode-&gt;m_pRight);  </li>
+<li>}  </li>
+<li>else if(pNode-&gt;m_pLeft != NULL &amp;&amp; pNode-&gt;m_pRight == NULL)  </li>
+<li>{  </li>
+<li>mustHaveNoChild = true;  </li>
+<li>q.push(pNode-&gt;m_pLeft);  </li>
+<li>}  </li>
+<li>else if(pNode-&gt;m_pLeft == NULL &amp;&amp; pNode-&gt;m_pRight != NULL)  </li>
+<li>{  </li>
+<li>result = false;  </li>
+<li>break;  </li>
+<li>}  </li>
+<li>else  </li>
+<li>{  </li>
+<li>mustHaveNoChild = true;  </li>
+<li>}  </li>
+<li>}  </li>
+<li>}  </li>
+<li>return result;  </li>
+<li>}  </li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/25/二叉树（unfinished）/" data-id="cjgt4ou5e00034czpdqydrrsj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JS 数组遍历方法简单实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/22/JS 数组遍历方法简单实现/" class="article-date">
+  <time datetime="2017-10-21T16:00:00.000Z" itemprop="datePublished">2017-10-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/22/JS 数组遍历方法简单实现/">JavaScript 数组遍历方法简单实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Array-prototype-forEach"><a href="#Array-prototype-forEach" class="headerlink" title="Array.prototype.forEach()"></a>Array.prototype.forEach()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="built_in">Array</span>.prototype.forEach)&#123;</span><br><span class="line">    <span class="built_in">Array</span>.prototype.forEach = <span class="function"><span class="keyword">function</span>(<span class="params">callback,context</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> target = <span class="built_in">Object</span>(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">var</span> len = target.length;</span><br><span class="line">        <span class="keyword">var</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(k &lt; len)&#123;</span><br><span class="line">            <span class="keyword">if</span>(k <span class="keyword">in</span> target)&#123;</span><br><span class="line">                callback.call(context,target[k],k,target);</span><br><span class="line">            &#125;</span><br><span class="line">            k++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-map"><a href="#Array-prototype-map" class="headerlink" title="Array.prototype.map()"></a>Array.prototype.map()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="built_in">Array</span>.prototype.map)&#123;</span><br><span class="line">    <span class="built_in">Array</span>.prototype.map = <span class="function"><span class="keyword">function</span>(<span class="params">callback,context</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> target = <span class="built_in">Object</span>(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">var</span> len = target.length;</span><br><span class="line">        <span class="keyword">var</span> k = <span class="number">0</span>, arr = [];</span><br><span class="line">        <span class="keyword">while</span>(k &lt; len)&#123;</span><br><span class="line">            <span class="keyword">if</span>(k <span class="keyword">in</span> target)&#123;</span><br><span class="line">                arr.push(callback.call(context,target[k],k,target));</span><br><span class="line">            &#125;</span><br><span class="line">            k++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-filter"><a href="#Array-prototype-filter" class="headerlink" title="Array.prototype.filter()"></a>Array.prototype.filter()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="built_in">Array</span>.prototype.filter)&#123;</span><br><span class="line">    <span class="built_in">Array</span>.prototype.filter = <span class="function"><span class="keyword">function</span>(<span class="params">calback,context</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> target = <span class="built_in">Object</span>(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">var</span> len = target.length;</span><br><span class="line">        <span class="keyword">var</span> k = <span class="number">0</span>, arr = [];</span><br><span class="line">        <span class="keyword">while</span>(k &lt; len)&#123;</span><br><span class="line">            <span class="keyword">if</span>(k <span class="keyword">in</span> target)&#123;</span><br><span class="line">                callback.call(context,target[k],k,target) &amp;&amp; arr.push(target[k])</span><br><span class="line">            &#125;</span><br><span class="line">            k++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-reduce"><a href="#Array-prototype-reduce" class="headerlink" title="Array.prototype.reduce()"></a>Array.prototype.reduce()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="built_in">Array</span>.prototype.reduce)&#123;</span><br><span class="line">    <span class="built_in">Array</span>.prototype.reduce = <span class="function"><span class="keyword">function</span>(<span class="params">callback,initialValue</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> target = <span class="built_in">Object</span>(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">var</span> len = target.length;</span><br><span class="line">        <span class="keyword">var</span> initial = initialValue || target[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">var</span> k = !!initialValue?<span class="number">0</span>:<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(k &lt; len)&#123;</span><br><span class="line">            <span class="keyword">if</span>(k <span class="keyword">in</span> target)&#123;</span><br><span class="line">                initial = callback(initial,target[k],k,target);</span><br><span class="line">            &#125;</span><br><span class="line">            k++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> initial;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/22/JS 数组遍历方法简单实现/" data-id="cjgt4ou5500004czpd83lb2qc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-redux 源码分析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/09/redux 源码分析/" class="article-date">
+  <time datetime="2017-10-08T16:00:00.000Z" itemprop="datePublished">2017-10-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/09/redux 源码分析/">Redux 源码分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a><code>Redux</code></h3><h4 id="combineReducers"><a href="#combineReducers" class="headerlink" title="combineReducers"></a><code>combineReducers</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 回顾一下combineReducers的使用格式</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 两个reducer</span></span><br><span class="line"><span class="keyword">const</span> todos = <span class="function">(<span class="params">state = INIT.todos, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ....</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> filterStatus = <span class="function">(<span class="params">state = INIT.filterStatus, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> appReducer = combineReducers(&#123;</span><br><span class="line">  todos,</span><br><span class="line">  filterStatus</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>还记得<code>combineReducers</code>的黑魔法吗？即：</p>
+<ol>
+<li><p>传入的Object参数中，对象的<code>key</code>与<code>value</code>所代表的<code>reducer function</code>同名</p>
+</li>
+<li><p>各个<code>reducer function</code>的名称和需要传入该reducer的<code>state</code>参数同名。</p>
+</li>
+</ol>
+</blockquote>
+<p>源码标注解读（省略部分）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">combineReducers</span>(<span class="params">reducers</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 第一次筛选，参数reducers为Object</span></span><br><span class="line">  <span class="comment">// 筛选掉reducers中不是function的键值对</span></span><br><span class="line">  <span class="keyword">var</span> reducerKeys = <span class="built_in">Object</span>.keys(reducers);</span><br><span class="line">  <span class="keyword">var</span> finalReducers = &#123;&#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; reducerKeys.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> key = reducerKeys[i];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> reducers[key] === <span class="string">'function'</span>) &#123;</span><br><span class="line">      finalReducers[key] = reducers[key]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> finalReducerKeys = <span class="built_in">Object</span>.keys(finalReducers)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 二次筛选，判断reducer中传入的值是否合法（!== undefined）</span></span><br><span class="line">  <span class="comment">// 获取筛选完之后的所有key</span></span><br><span class="line">  <span class="keyword">var</span> sanityError</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// assertReducerSanity函数用于遍历finalReducers中的reducer，检查传入reducer的state是否合法</span></span><br><span class="line">    assertReducerSanity(finalReducers)</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    sanityError = e</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 返回一个function。该方法接收state和action作为参数</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">combination</span>(<span class="params">state = &#123;&#125;, action</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 如果之前的判断reducers中有不法值，则抛出错误</span></span><br><span class="line">    <span class="keyword">if</span> (sanityError) &#123;</span><br><span class="line">      <span class="keyword">throw</span> sanityError</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果不是production环境则抛出warning</span></span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action)</span><br><span class="line">      <span class="keyword">if</span> (warningMessage) &#123;</span><br><span class="line">        warning(warningMessage)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> hasChanged = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">var</span> nextState = &#123;&#125;</span><br><span class="line">    <span class="comment">// 遍历所有的key和reducer，分别将reducer对应的key所代表的state，代入到reducer中进行函数调用</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; finalReducerKeys.length; i++) &#123;</span><br><span class="line">      <span class="keyword">var</span> key = finalReducerKeys[i]</span><br><span class="line">      <span class="keyword">var</span> reducer = finalReducers[key]</span><br><span class="line">      <span class="comment">// 这也就是为什么说combineReducers黑魔法--要求传入的Object参数中，reducer function的名称和要和state同名的原因</span></span><br><span class="line">      <span class="keyword">var</span> previousStateForKey = state[key]</span><br><span class="line">      <span class="keyword">var</span> nextStateForKey = reducer(previousStateForKey, action)</span><br><span class="line">      <span class="comment">// 如果reducer返回undefined则抛出错误</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> nextStateForKey === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> errorMessage = getUndefinedStateErrorMessage(key, action)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(errorMessage)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 将reducer返回的值填入nextState</span></span><br><span class="line">      nextState[key] = nextStateForKey</span><br><span class="line">      <span class="comment">// 如果任一state有更新则hasChanged为true</span></span><br><span class="line">      hasChanged = hasChanged || nextStateForKey !== previousStateForKey</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> hasChanged ? nextState : state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查传入reducer的state是否合法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">assertReducerSanity</span>(<span class="params">reducers</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">Object</span>.keys(reducers).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> reducer = reducers[key]</span><br><span class="line">    <span class="comment">// 遍历全部reducer，并给它传入(undefined, action)</span></span><br><span class="line">    <span class="comment">// 当第一个参数传入undefined时，则为各个reducer定义的默认参数</span></span><br><span class="line">    <span class="keyword">var</span> initialState = reducer(<span class="literal">undefined</span>, &#123; <span class="attr">type</span>: ActionTypes.INIT &#125;)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ActionTypes.INIT几乎不会被定义，所以会通过switch的default返回reducer的默认参数。如果没有指定默认参数，则返回undefined，抛出错误</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> initialState === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">`Reducer "<span class="subst">$&#123;key&#125;</span>" returned undefined during initialization. `</span> +</span><br><span class="line">        <span class="string">`If the state passed to the reducer is undefined, you must `</span> +</span><br><span class="line">        <span class="string">`explicitly return the initial state. The initial state may `</span> +</span><br><span class="line">        <span class="string">`not be undefined.`</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> type = <span class="string">'@@redux/PROBE_UNKNOWN_ACTION_'</span> + <span class="built_in">Math</span>.random().toString(<span class="number">36</span>).substring(<span class="number">7</span>).split(<span class="string">''</span>).join(<span class="string">'.'</span>)</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> reducer(<span class="literal">undefined</span>, &#123; type &#125;) === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">`Reducer "<span class="subst">$&#123;key&#125;</span>" returned undefined when probed with a random type. `</span> +</span><br><span class="line">        <span class="string">`Don't try to handle <span class="subst">$&#123;ActionTypes.INIT&#125;</span> or other actions in "redux/*" `</span> +</span><br><span class="line">        <span class="string">`namespace. They are considered private. Instead, you must return the `</span> +</span><br><span class="line">        <span class="string">`current state for any unknown actions, unless it is undefined, `</span> +</span><br><span class="line">        <span class="string">`in which case you must return the initial state, regardless of the `</span> +</span><br><span class="line">        <span class="string">`action type. The initial state may not be undefined.`</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="createStore"><a href="#createStore" class="headerlink" title="createStore"></a><code>createStore</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 回顾下使用方法</span></span><br><span class="line"><span class="keyword">const</span> store = createStore(reducers, state, enhance);</span><br></pre></td></tr></table></figure>
+<p>源码标注解读（省略部分）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对于未知的action.type，reducer必须返回默认的参数state。这个ActionTypes.INIT就可以用来监测当reducer传入未知type的action时，返回的state是否合法</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">var</span> ActionTypes = &#123;</span><br><span class="line">  INIT: <span class="string">'@@redux/INIT'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">createStore</span>(<span class="params">reducer, initialState, enhancer</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 检查你的state和enhance参数有没有传反</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> initialState === <span class="string">'function'</span> &amp;&amp; <span class="keyword">typeof</span> enhancer === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    enhancer = initialState</span><br><span class="line">    initialState = <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 如果有传入合法的enhance，则通过enhancer再调用一次createStore</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> enhancer !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> enhancer !== <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected the enhancer to be a function.'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> enhancer(createStore)(reducer, initialState)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> reducer !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected the reducer to be a function.'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> currentReducer = reducer</span><br><span class="line">  <span class="keyword">var</span> currentState = initialState</span><br><span class="line">  <span class="keyword">var</span> currentListeners = []</span><br><span class="line">  <span class="keyword">var</span> nextListeners = currentListeners</span><br><span class="line">  <span class="keyword">var</span> isDispatching = <span class="literal">false</span> <span class="comment">// 是否正在分发事件</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">ensureCanMutateNextListeners</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (nextListeners === currentListeners) &#123;</span><br><span class="line">      nextListeners = currentListeners.slice()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 我们在action middleware中经常使用的getState()方法，返回当前state</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getState</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> currentState</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 注册listener，同时返回一个取消事件注册的方法。当调用store.dispatch的时候调用listener</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">subscribe</span>(<span class="params">listener</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> listener !== <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected listener to be a function.'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> isSubscribed = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    ensureCanMutateNextListeners()</span><br><span class="line">    nextListeners.push(listener)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">unsubscribe</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (!isSubscribed) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      isSubscribed = <span class="literal">false</span></span><br><span class="line">      <span class="comment">// 从nextListeners中去除掉当前listener</span></span><br><span class="line">      ensureCanMutateNextListeners()</span><br><span class="line">      <span class="keyword">var</span> index = nextListeners.indexOf(listener)</span><br><span class="line">      nextListeners.splice(index, <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// dispatch方法接收的action是个对象，而不是方法。</span></span><br><span class="line">  <span class="comment">// 这个对象实际上就是我们自定义action的返回值，因为dispatch的时候，已经调用过我们的自定义action了，比如 dispatch(addTodo())</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span>(<span class="params">action</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!isPlainObject(action)) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">'Actions must be plain objects. '</span> +</span><br><span class="line">        <span class="string">'Use custom middleware for async actions.'</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> action.type === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">'Actions may not have an undefined "type" property. '</span> +</span><br><span class="line">        <span class="string">'Have you misspelled a constant?'</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 调用dispatch的时候只能一个个调用，通过dispatch判断调用的状态</span></span><br><span class="line">    <span class="keyword">if</span> (isDispatching) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Reducers may not dispatch actions.'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      isDispatching = <span class="literal">true</span></span><br><span class="line">      currentState = currentReducer(currentState, action)</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      isDispatching = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 遍历调用各个linster</span></span><br><span class="line">    <span class="keyword">var</span> listeners = currentListeners = nextListeners</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; listeners.length; i++) &#123;</span><br><span class="line">      listeners[i]()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> action</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// Replaces the reducer currently used by the store to calculate the state.</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">replaceReducer</span>(<span class="params">nextReducer</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> nextReducer !== <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected the nextReducer to be a function.'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    currentReducer = nextReducer</span><br><span class="line">    dispatch(&#123; <span class="attr">type</span>: ActionTypes.INIT &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 当create store的时候，reducer会接受一个type为ActionTypes.INIT的action，使reducer返回他们默认的state，这样可以快速的形成默认的state的结构</span></span><br><span class="line">  dispatch(&#123; <span class="attr">type</span>: ActionTypes.INIT &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    dispatch,</span><br><span class="line">    subscribe,</span><br><span class="line">    getState,</span><br><span class="line">    replaceReducer</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="thunkMiddleware"><a href="#thunkMiddleware" class="headerlink" title="thunkMiddleware"></a><code>thunkMiddleware</code></h4><p>源码及其简单简直给跪…</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回以 dispatch 和 getState 作为参数的action</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">thunkMiddleware</span>(<span class="params">&#123; dispatch, getState &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">next</span> =&gt;</span> action =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> action === <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> action(dispatch, getState);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> next(action);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="applyMiddleware"><a href="#applyMiddleware" class="headerlink" title="applyMiddleware"></a><code>applyMiddleware</code></h4><p>先复习下用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// usage</span></span><br><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">import</span> thunkMiddleware <span class="keyword">from</span> <span class="string">'redux-thunk'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(</span><br><span class="line">      reducers,</span><br><span class="line">      state,</span><br><span class="line">      applyMiddleware(thunkMiddleware)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><code>applyMiddleware</code>首先接收<code>thunkMiddleware</code>作为参数，两者组合成为一个新的函数（<code>enhance</code>），之后在<code>createStore</code>内部，因为<code>enhance</code>的存在，将会变成返回<code>enhancer(createStore)(reducer, initialState)</code></p>
+<p>源码标注解读（省略部分）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个代码组合的方法</span></span><br><span class="line"><span class="comment">// 传入一些function作为参数，返回其链式调用的形态。例如，</span></span><br><span class="line"><span class="comment">// compose(f, g, h) 最终返回 (...args) =&gt; f(g(h(...args)))</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">compose</span>(<span class="params">...funcs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (funcs.length === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">arg</span> =&gt;</span> arg</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> last = funcs[funcs.length - <span class="number">1</span>]</span><br><span class="line">    <span class="keyword">const</span> rest = funcs.slice(<span class="number">0</span>, <span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> rest.reduceRight(<span class="function">(<span class="params">composed, f</span>) =&gt;</span> f(composed), last(...args))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">applyMiddleware</span>(<span class="params">...middlewares</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 最终返回一个以createStore为参数的匿名函数</span></span><br><span class="line">  <span class="comment">// 这个函数返回另一个以reducer, initialState, enhancer为参数的匿名函数</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">createStore</span>) =&gt;</span> (reducer, initialState, enhancer) =&gt; &#123;</span><br><span class="line">    <span class="keyword">var</span> store = createStore(reducer, initialState, enhancer)</span><br><span class="line">    <span class="keyword">var</span> dispatch</span><br><span class="line">    <span class="keyword">var</span> chain = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> middlewareAPI = &#123;</span><br><span class="line">      getState: store.getState,</span><br><span class="line">      dispatch: <span class="function">(<span class="params">action</span>) =&gt;</span> dispatch(action)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 每个 middleware 都以 middlewareAPI 作为参数进行注入，返回一个新的链。此时的返回值相当于调用 thunkMiddleware 返回的函数： (next) =&gt; (action) =&gt; &#123;&#125; ，接收一个next作为其参数</span></span><br><span class="line">    chain = middlewares.map(<span class="function"><span class="params">middleware</span> =&gt;</span> middleware(middlewareAPI))</span><br><span class="line">    <span class="comment">// 并将链代入进 compose 组成一个函数的调用链</span></span><br><span class="line">    <span class="comment">// compose(...chain) 返回形如(...args) =&gt; f(g(h(...args)))，f/g/h都是chain中的函数对象。</span></span><br><span class="line">    <span class="comment">// 在目前只有 thunkMiddleware 作为 middlewares 参数的情况下，将返回 (next) =&gt; (action) =&gt; &#123;&#125;</span></span><br><span class="line">    <span class="comment">// 之后以 store.dispatch 作为参数进行注入</span></span><br><span class="line">    dispatch = compose(...chain)(store.dispatch)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      ...store,</span><br><span class="line">      dispatch</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一脸懵逼？没关系，来结合实际使用总结一下：</p>
+<p>当我们搭配<code>redux-thunk</code>这个库的时候，在<code>redux</code>配合<code>components</code>时，通常这么写</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> thunkMiddleware <span class="keyword">from</span> <span class="string">'redux-thunk'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware, combineReducer &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> reducers <span class="keyword">from</span> <span class="string">'./reducers.js'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> appReducer = combineReducer(reducers);</span><br><span class="line"><span class="keyword">const</span> store = createStore(appReducer, initialState, applyMiddleware(thunkMiddleware));</span><br></pre></td></tr></table></figure>
+<p>还记得当<code>createStore</code>收到的参数中有<code>enhance</code>时会怎么做吗？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// createStore.js</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> enhancer !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> enhancer !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected the enhancer to be a function.'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> enhancer(createStore)(reducer, initialState)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也就是说，会变成下面的情况</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">applyMiddleware(thunkMiddleware)(createStore)(reducer, initialState)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>applyMiddleware(thunkMiddleware)</code></li>
+</ul>
+<p><code>applyMiddleware</code>接收<code>thunkMiddleware</code>作为参数，返回形如<code>(createStore) =&gt; (reducer, initialState, enhancer) =&gt; {}</code>的函数。</p>
+<ul>
+<li><code>applyMiddleware(thunkMiddleware)(createStore)</code></li>
+</ul>
+<p>以 createStore 作为参数，调用上一步返回的函数<code>(reducer, initialState, enhancer) =&gt; {}</code></p>
+<ul>
+<li><code>applyMiddleware(thunkMiddleware)(createStore)(reducer, initialState)</code></li>
+</ul>
+<p>以（reducer, initialState）为参数进行调用。<br>在这个函数内部，<code>thunkMiddleware</code>被调用，其作用是监测<code>type</code>是<code>function</code>的<code>action</code></p>
+<p>因此，如果<code>dispatch</code>的<code>action</code>返回的是一个<code>function</code>，则证明是中间件，则将<code>(dispatch, getState)</code>作为参数代入其中，进行<code>action</code> 内部下一步的操作。否则的话，认为只是一个普通的<code>action</code>，将通过<code>next</code>(也就是<code>dispatch</code>)进一步分发</p>
+<hr>
+<p>也就是说，<code>applyMiddleware(thunkMiddleware)</code>作为<code>enhance</code>，最终起了这样的作用：</p>
+<p>对<code>dispatch</code>调用的<code>action</code>(例如，<code>dispatch(addNewTodo(todo)))</code>进行检查，如果<code>action</code>在第一次调用之后返回的是<code>function</code>，则将<code>(dispatch, getState)</code>作为参数注入到<code>action</code>返回的方法中，否则就正常对<code>action</code>进行分发，这样一来我们的中间件就完成喽~</p>
+<p>因此，当<code>action</code>内部需要获取<code>state</code>，或者需要进行异步操作，在操作完成之后进行事件调用分发的话，我们就可以让<code>action</code> 返回一个以<code>(dispatch, getState)</code>为参数的<code>function</code>而不是通常的<code>Object</code>，<code>enhance</code>就会对其进行检测以便正确的处理</p>
+<p><a href="https://www.cnblogs.com/lijiayi/p/reduxcurry.html" target="_blank" rel="noopener">https://www.cnblogs.com/lijiayi/p/reduxcurry.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/09/redux 源码分析/" data-id="cjgt4ou5i00064czpphv2gemw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JS正则表达式replace方法详解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/27/JS正则表达式replace方法详解/" class="article-date">
+  <time datetime="2017-09-26T16:00:00.000Z" itemprop="datePublished">2017-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/27/JS正则表达式replace方法详解/">JavaScript replace 方法详解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>replace方法是javascript涉及到正则表达式中较为复杂的一个方法，严格上说应该是string对象的方法。只不过牵扯到正则的时候比较多一些。需要我们灵活的使用。</p>
+<blockquote>
+<p>语法：stringObj.replace(regexp/substr,replacement)；</p>
+</blockquote>
+<ul>
+<li>第一个参数：必需。字符串中要替换的子串或正则RexExp；</li>
+<li>第二个参数：必需，一个字符串值，规定了替换文本或生成替换文本的函数。 </li>
+<li>返回值：注意它的返回值是一个新的字符串，并没有更改原有字符串，是用 replacement 替换了 regexp 的第一次匹配或所有匹配之后得到的。<br>所以根据它的参数的不同分为很多种情况，以下一一对各种情况加以分析：</li>
+</ul>
+<h4 id="NO-1-两个参数都是字符串"><a href="#NO-1-两个参数都是字符串" class="headerlink" title="NO.1 两个参数都是字符串"></a>NO.1 两个参数都是字符串</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str1 = <span class="string">'这是一段原始文本，需要替换的内容"这要替换"！'</span>;</span><br><span class="line"><span class="keyword">var</span> newStr = str1.replace(<span class="string">'这要替换'</span>,<span class="string">'need replace'</span>);</span><br><span class="line"><span class="built_in">console</span>.log( newStr );    <span class="comment">//输出：   这是一段原始文本，需要替换的内容"need replace"！</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子中第二个参数字符串’need replace’,替换掉了第一个参数字符串’这要替换’。这是最简单的一种形式。</p>
+<h4 id="NO-2-第一个参数是正则，第二个参数是字符串"><a href="#NO-2-第一个参数是正则，第二个参数是字符串" class="headerlink" title="NO.2 第一个参数是正则，第二个参数是字符串"></a>NO.2 第一个参数是正则，第二个参数是字符串</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str2 = <span class="string">'这是一段原始文本，需要替换的内容"ac这要替换bb"！'</span>;</span><br><span class="line"><span class="keyword">var</span> newStr = str2.replace( <span class="regexp">/([a-z])+/g</span>,<span class="string">'qqq'</span> );</span><br><span class="line"><span class="built_in">console</span>.log( newStr );    <span class="comment">//输出：   这是一段原始文本，需要替换的内容"qqq这要替换qqq"！</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子字符串’qqq’,替换了正则匹配的内容。如果 regexp 具有全局标志 g，那么 replace() 方法将替换所有匹配的子串。否则，它只替换第一个匹配子串。</p>
+<h4 id="NO-3-第一个参数是正则，第二个参数是带-符的字符串"><a href="#NO-3-第一个参数是正则，第二个参数是带-符的字符串" class="headerlink" title="NO.3 第一个参数是正则，第二个参数是带$符的字符串"></a>NO.3 第一个参数是正则，第二个参数是带$符的字符串</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str3 = <span class="string">'这是一段原始文本,"3c这要替换4d"!'</span>;</span><br><span class="line"><span class="keyword">var</span> newStr = str3.replace( <span class="regexp">/([0-9])([a-z])/g</span>,<span class="string">"$1"</span> );</span><br><span class="line"><span class="built_in">console</span>.log( newStr );    <span class="comment">//输出：    这是一段原始文本,"3这要替换4"!';</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://sfault-image.b0.upaiyun.com/948/824/948824390-58d1e73cca3bc_articlex" alt="image">  </p>
+<p>上面的例子，$1表示regexp中的第一个子表示即（[0-9]）匹配单个数字，同理若是$2则表示第二个子表示即（[a-z]）；所以，’3c’这个匹配到的整体被第一个子表示说表示的’3’替换，’4d’被第一个子表示匹配的数字’4’所替换。其他几个同理可得：</p>
+<p>（/([0-9])([a-z])/g,”$2″）—&gt;////输出： 这是一段原始文本,”c这要替换d”!’; (3c和4d被相应的第二个子表示匹配出来的c和d替换)<br>（/([0-9])([a-z])/g,”$’”）—&gt;////输出： 这是一段原始文本,”这要替换d”!这要替换”!”!’; (3c被3c右侧文本替换，4d右侧是”!替换，所以出现俩次)</p>
+<h4 id="NO-4-第一个参数是正则，第二个参数函数"><a href="#NO-4-第一个参数是正则，第二个参数函数" class="headerlink" title="NO.4 第一个参数是正则，第二个参数函数"></a>NO.4 第一个参数是正则，第二个参数函数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str4 = <span class="string">'这是一段原始文本，需要替换的内容"aa这要bbb替换ccccc"！'</span>;</span><br><span class="line"><span class="keyword">var</span> newStr = str4.replace( <span class="regexp">/[a-z]+/g</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$<span class="number">0</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> str = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; $<span class="number">0.</span>length; i++) &#123;</span><br><span class="line">        str += <span class="string">'*'</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125; );</span><br><span class="line"><span class="built_in">console</span>.log( newStr );    <span class="comment">//这是一段原始文本，需要替换的内容"**这要***替换*****"！</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子函数的第一个参数为匹配的regexp的整体，根据长度函数返回值为相应替换的文本；</p>
+<h4 id="NO-5-第一个参数是正则且有子表达式，第二个参数函数且带有多个参数"><a href="#NO-5-第一个参数是正则且有子表达式，第二个参数函数且带有多个参数" class="headerlink" title="NO.5 第一个参数是正则且有子表达式，第二个参数函数且带有多个参数"></a>NO.5 第一个参数是正则且有子表达式，第二个参数函数且带有多个参数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str5 = <span class="string">'这是一段原始文本，需要替换的内容"3c这要替换4d"！'</span>;</span><br><span class="line"><span class="keyword">var</span> newStr = str5.replace( <span class="regexp">/([0-9])([a-z])/g</span>,<span class="function"><span class="keyword">function</span> (<span class="params">arg1,arg2,arg3,arg4,arg5</span>)</span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log( arg1 );</span><br><span class="line">  <span class="built_in">console</span>.log( arg2 );</span><br><span class="line">  <span class="built_in">console</span>.log( arg3 );</span><br><span class="line">  <span class="built_in">console</span>.log( arg4 );</span><br><span class="line">  <span class="built_in">console</span>.log( arg5 );</span><br><span class="line">&#125; );</span><br><span class="line"><span class="comment">//输出：</span></span><br><span class="line"><span class="number">3</span>c</span><br><span class="line"><span class="number">3</span></span><br><span class="line">c</span><br><span class="line"><span class="number">17</span></span><br><span class="line">这是一段原始文本，需要替换的内容<span class="string">"3c这要替换4d"</span>！</span><br><span class="line"><span class="number">4</span>d</span><br><span class="line"><span class="number">4</span></span><br><span class="line">d</span><br><span class="line"><span class="number">23</span></span><br><span class="line">这是一段原始文本，需要替换的内容<span class="string">"3c这要替换4d"</span>！</span><br></pre></td></tr></table></figure>
+<p>上面的例子第一个参数arg1表示匹配的整体，arg2表示第一个子表达式，arg3表示第二个子表达式，接下来的参数arg4是一个整数，声明了表示子匹配在 stringObject 中出现的位置。最后一个参数是 stringObject 本身。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/27/JS正则表达式replace方法详解/" data-id="cjgt4ou5h00054czpco9u5jos" class="article-share-link">Share</a>
       
       
     </footer>
@@ -202,7 +826,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/22/数组乱序实现/" data-id="cjgt2cc9w00039wzp11tckcfz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/22/数组乱序实现/" data-id="cjgt4ou5m00094czp4j0s22ka" class="article-share-link">Share</a>
       
       
     </footer>
@@ -258,7 +882,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/02/JS-bind实现/" data-id="cjgt2cc9l00009wzpeu1yoqc4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/02/JS-bind实现/" data-id="cjgt4ou5d00024czpp00x76o8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -402,52 +1026,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/05/字符编码之ASCII，Unicode与UTF/" data-id="cjgt2gthm0000o0zpveeiggdz" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/05/05/hello-world/" class="article-date">
-  <time datetime="2017-05-04T16:00:00.000Z" itemprop="datePublished">2017-05-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/05/hello-world/">First Blog</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/05/hello-world/" data-id="cjgt2cc9s00019wzp2zekb8k2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/08/05/字符编码之ASCII，Unicode与UTF/" data-id="cjgt4ou5k00074czp4nhsq9l8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -458,6 +1037,11 @@
 
   
 
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -475,7 +1059,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
   </div>
 
@@ -492,19 +1076,19 @@
           </li>
         
           <li>
+            <a href="/2018/03/22/ES6 Proxy 与 Reflect/">ES6 Proxy 与 Reflect</a>
+          </li>
+        
+          <li>
             <a href="/2018/03/15/柯里化与偏函数/">柯里化与偏函数</a>
           </li>
         
           <li>
-            <a href="/2017/09/22/数组乱序实现/">JavaScript 数组乱序实现</a>
+            <a href="/2017/10/25/二叉树（unfinished）/">数据结构——二叉树（unfinished）</a>
           </li>
         
           <li>
-            <a href="/2017/09/02/JS-bind实现/">JavaScript 之 bind 实现</a>
-          </li>
-        
-          <li>
-            <a href="/2017/08/05/字符编码之ASCII，Unicode与UTF/">字符编码之ASCII，Unicode与UTF</a>
+            <a href="/2017/10/22/JS 数组遍历方法简单实现/">JavaScript 数组遍历方法简单实现</a>
           </li>
         
       </ul>

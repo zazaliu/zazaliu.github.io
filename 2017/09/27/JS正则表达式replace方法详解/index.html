@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>JavaScript replace 方法详解 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="replace方法是javascript涉及到正则表达式中较为复杂的一个方法，严格上说应该是string对象的方法。只不过牵扯到正则的时候比较多一些。需要我们灵活的使用。  语法：stringObj.replace(regexp/substr,replacement)；   第一个参数：必需。字符串中要替换的子串或正则RexExp； 第二个参数：必需，一个字符串值，规定了替换文本或生成替换文本的函">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript replace 方法详解">
+<meta property="og:url" content="http://yoursite.com/2017/09/27/JS正则表达式replace方法详解/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="replace方法是javascript涉及到正则表达式中较为复杂的一个方法，严格上说应该是string对象的方法。只不过牵扯到正则的时候比较多一些。需要我们灵活的使用。  语法：stringObj.replace(regexp/substr,replacement)；   第一个参数：必需。字符串中要替换的子串或正则RexExp； 第二个参数：必需，一个字符串值，规定了替换文本或生成替换文本的函">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/948/824/948824390-58d1e73cca3bc_articlex">
+<meta property="og:updated_time" content="2018-05-05T08:26:09.479Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript replace 方法详解">
+<meta name="twitter:description" content="replace方法是javascript涉及到正则表达式中较为复杂的一个方法，严格上说应该是string对象的方法。只不过牵扯到正则的时候比较多一些。需要我们灵活的使用。  语法：stringObj.replace(regexp/substr,replacement)；   第一个参数：必需。字符串中要替换的子串或正则RexExp； 第二个参数：必需，一个字符串值，规定了替换文本或生成替换文本的函">
+<meta name="twitter:image" content="https://sfault-image.b0.upaiyun.com/948/824/948824390-58d1e73cca3bc_articlex">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JS正则表达式replace方法详解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/27/JS正则表达式replace方法详解/" class="article-date">
+  <time datetime="2017-09-26T16:00:00.000Z" itemprop="datePublished">2017-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript replace 方法详解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>replace方法是javascript涉及到正则表达式中较为复杂的一个方法，严格上说应该是string对象的方法。只不过牵扯到正则的时候比较多一些。需要我们灵活的使用。</p>
+<blockquote>
+<p>语法：stringObj.replace(regexp/substr,replacement)；</p>
+</blockquote>
+<ul>
+<li>第一个参数：必需。字符串中要替换的子串或正则RexExp；</li>
+<li>第二个参数：必需，一个字符串值，规定了替换文本或生成替换文本的函数。 </li>
+<li>返回值：注意它的返回值是一个新的字符串，并没有更改原有字符串，是用 replacement 替换了 regexp 的第一次匹配或所有匹配之后得到的。<br>所以根据它的参数的不同分为很多种情况，以下一一对各种情况加以分析：</li>
+</ul>
+<h4 id="NO-1-两个参数都是字符串"><a href="#NO-1-两个参数都是字符串" class="headerlink" title="NO.1 两个参数都是字符串"></a>NO.1 两个参数都是字符串</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str1 = <span class="string">'这是一段原始文本，需要替换的内容"这要替换"！'</span>;</span><br><span class="line"><span class="keyword">var</span> newStr = str1.replace(<span class="string">'这要替换'</span>,<span class="string">'need replace'</span>);</span><br><span class="line"><span class="built_in">console</span>.log( newStr );    <span class="comment">//输出：   这是一段原始文本，需要替换的内容"need replace"！</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子中第二个参数字符串’need replace’,替换掉了第一个参数字符串’这要替换’。这是最简单的一种形式。</p>
+<h4 id="NO-2-第一个参数是正则，第二个参数是字符串"><a href="#NO-2-第一个参数是正则，第二个参数是字符串" class="headerlink" title="NO.2 第一个参数是正则，第二个参数是字符串"></a>NO.2 第一个参数是正则，第二个参数是字符串</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str2 = <span class="string">'这是一段原始文本，需要替换的内容"ac这要替换bb"！'</span>;</span><br><span class="line"><span class="keyword">var</span> newStr = str2.replace( <span class="regexp">/([a-z])+/g</span>,<span class="string">'qqq'</span> );</span><br><span class="line"><span class="built_in">console</span>.log( newStr );    <span class="comment">//输出：   这是一段原始文本，需要替换的内容"qqq这要替换qqq"！</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子字符串’qqq’,替换了正则匹配的内容。如果 regexp 具有全局标志 g，那么 replace() 方法将替换所有匹配的子串。否则，它只替换第一个匹配子串。</p>
+<h4 id="NO-3-第一个参数是正则，第二个参数是带-符的字符串"><a href="#NO-3-第一个参数是正则，第二个参数是带-符的字符串" class="headerlink" title="NO.3 第一个参数是正则，第二个参数是带$符的字符串"></a>NO.3 第一个参数是正则，第二个参数是带$符的字符串</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str3 = <span class="string">'这是一段原始文本,"3c这要替换4d"!'</span>;</span><br><span class="line"><span class="keyword">var</span> newStr = str3.replace( <span class="regexp">/([0-9])([a-z])/g</span>,<span class="string">"$1"</span> );</span><br><span class="line"><span class="built_in">console</span>.log( newStr );    <span class="comment">//输出：    这是一段原始文本,"3这要替换4"!';</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://sfault-image.b0.upaiyun.com/948/824/948824390-58d1e73cca3bc_articlex" alt="image">  </p>
+<p>上面的例子，$1表示regexp中的第一个子表示即（[0-9]）匹配单个数字，同理若是$2则表示第二个子表示即（[a-z]）；所以，’3c’这个匹配到的整体被第一个子表示说表示的’3’替换，’4d’被第一个子表示匹配的数字’4’所替换。其他几个同理可得：</p>
+<p>（/([0-9])([a-z])/g,”$2″）—&gt;////输出： 这是一段原始文本,”c这要替换d”!’; (3c和4d被相应的第二个子表示匹配出来的c和d替换)<br>（/([0-9])([a-z])/g,”$’”）—&gt;////输出： 这是一段原始文本,”这要替换d”!这要替换”!”!’; (3c被3c右侧文本替换，4d右侧是”!替换，所以出现俩次)</p>
+<h4 id="NO-4-第一个参数是正则，第二个参数函数"><a href="#NO-4-第一个参数是正则，第二个参数函数" class="headerlink" title="NO.4 第一个参数是正则，第二个参数函数"></a>NO.4 第一个参数是正则，第二个参数函数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str4 = <span class="string">'这是一段原始文本，需要替换的内容"aa这要bbb替换ccccc"！'</span>;</span><br><span class="line"><span class="keyword">var</span> newStr = str4.replace( <span class="regexp">/[a-z]+/g</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$<span class="number">0</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> str = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; $<span class="number">0.</span>length; i++) &#123;</span><br><span class="line">        str += <span class="string">'*'</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125; );</span><br><span class="line"><span class="built_in">console</span>.log( newStr );    <span class="comment">//这是一段原始文本，需要替换的内容"**这要***替换*****"！</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子函数的第一个参数为匹配的regexp的整体，根据长度函数返回值为相应替换的文本；</p>
+<h4 id="NO-5-第一个参数是正则且有子表达式，第二个参数函数且带有多个参数"><a href="#NO-5-第一个参数是正则且有子表达式，第二个参数函数且带有多个参数" class="headerlink" title="NO.5 第一个参数是正则且有子表达式，第二个参数函数且带有多个参数"></a>NO.5 第一个参数是正则且有子表达式，第二个参数函数且带有多个参数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str5 = <span class="string">'这是一段原始文本，需要替换的内容"3c这要替换4d"！'</span>;</span><br><span class="line"><span class="keyword">var</span> newStr = str5.replace( <span class="regexp">/([0-9])([a-z])/g</span>,<span class="function"><span class="keyword">function</span> (<span class="params">arg1,arg2,arg3,arg4,arg5</span>)</span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log( arg1 );</span><br><span class="line">  <span class="built_in">console</span>.log( arg2 );</span><br><span class="line">  <span class="built_in">console</span>.log( arg3 );</span><br><span class="line">  <span class="built_in">console</span>.log( arg4 );</span><br><span class="line">  <span class="built_in">console</span>.log( arg5 );</span><br><span class="line">&#125; );</span><br><span class="line"><span class="comment">//输出：</span></span><br><span class="line"><span class="number">3</span>c</span><br><span class="line"><span class="number">3</span></span><br><span class="line">c</span><br><span class="line"><span class="number">17</span></span><br><span class="line">这是一段原始文本，需要替换的内容<span class="string">"3c这要替换4d"</span>！</span><br><span class="line"><span class="number">4</span>d</span><br><span class="line"><span class="number">4</span></span><br><span class="line">d</span><br><span class="line"><span class="number">23</span></span><br><span class="line">这是一段原始文本，需要替换的内容<span class="string">"3c这要替换4d"</span>！</span><br></pre></td></tr></table></figure>
+<p>上面的例子第一个参数arg1表示匹配的整体，arg2表示第一个子表达式，arg3表示第二个子表达式，接下来的参数arg4是一个整数，声明了表示子匹配在 stringObject 中出现的位置。最后一个参数是 stringObject 本身。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/27/JS正则表达式replace方法详解/" data-id="cjgt4ou5h00054czpco9u5jos" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/09/redux 源码分析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Redux 源码分析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/22/数组乱序实现/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript 数组乱序实现</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/05/懒加载/">懒加载</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/ES6 Proxy 与 Reflect/">ES6 Proxy 与 Reflect</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/15/柯里化与偏函数/">柯里化与偏函数</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/25/二叉树（unfinished）/">数据结构——二叉树（unfinished）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/22/JS 数组遍历方法简单实现/">JavaScript 数组遍历方法简单实现</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

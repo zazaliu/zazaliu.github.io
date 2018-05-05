@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据结构——二叉树（unfinished） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="树是一种比较重要的数据结构，尤其是二叉树。二叉树是一种特殊的树，在二叉树中每个节点最多有两个子节点，一般称为左子节点和右子节点（或左孩子和右孩子），并且二叉树的子树有左右之分，其次序不能任意颠倒。二叉树是递归定义的，因此，与二叉树有关的题目基本都可以用递归思想解决，当然有些题目非递归解法也应该掌握，如非递归遍历节点等等。本文努力对二叉树相关题目做一个较全的整理总结。二叉树节点定义如下：   123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构——二叉树（unfinished）">
+<meta property="og:url" content="http://yoursite.com/2017/10/25/二叉树（unfinished）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="树是一种比较重要的数据结构，尤其是二叉树。二叉树是一种特殊的树，在二叉树中每个节点最多有两个子节点，一般称为左子节点和右子节点（或左孩子和右孩子），并且二叉树的子树有左右之分，其次序不能任意颠倒。二叉树是递归定义的，因此，与二叉树有关的题目基本都可以用递归思想解决，当然有些题目非递归解法也应该掌握，如非递归遍历节点等等。本文努力对二叉树相关题目做一个较全的整理总结。二叉树节点定义如下：   123">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-05T08:29:15.273Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构——二叉树（unfinished）">
+<meta name="twitter:description" content="树是一种比较重要的数据结构，尤其是二叉树。二叉树是一种特殊的树，在二叉树中每个节点最多有两个子节点，一般称为左子节点和右子节点（或左孩子和右孩子），并且二叉树的子树有左右之分，其次序不能任意颠倒。二叉树是递归定义的，因此，与二叉树有关的题目基本都可以用递归思想解决，当然有些题目非递归解法也应该掌握，如非递归遍历节点等等。本文努力对二叉树相关题目做一个较全的整理总结。二叉树节点定义如下：   123">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-二叉树（unfinished）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/25/二叉树（unfinished）/" class="article-date">
+  <time datetime="2017-10-24T16:00:00.000Z" itemprop="datePublished">2017-10-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构——二叉树（unfinished）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>树是一种比较重要的数据结构，尤其是二叉树。二叉树是一种特殊的树，在二叉树中每个节点最多有两个子节点，一般称为左子节点和右子节点（或左孩子和右孩子），并且二叉树的子树有左右之分，其次序不能任意颠倒。二叉树是递归定义的，因此，与二叉树有关的题目基本都可以用递归思想解决，当然有些题目非递归解法也应该掌握，如非递归遍历节点等等。本文努力对二叉树相关题目做一个较全的整理总结。<br>二叉树节点定义如下：  </p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        self.val = x</span><br><span class="line">        self.left = <span class="keyword">None</span></span><br><span class="line">        self.right = <span class="keyword">None</span></span><br></pre></td></tr></table></figure>
+<h4 id="题目列表："><a href="#题目列表：" class="headerlink" title="题目列表："></a>题目列表：</h4><ol>
+<li>求二叉树中的节点个数</li>
+<li>求二叉树的深度</li>
+<li>前序遍历，中序遍历，后序遍历<br>4.分层遍历二叉树（按层次从上往下，从左往右）</li>
+<li>将二叉查找树变为有序的双向链表</li>
+<li>求二叉树第K层的节点个数</li>
+<li>求二叉树中叶子节点的个数</li>
+<li>判断两棵二叉树是否结构相同</li>
+<li>判断二叉树是不是平衡二叉树</li>
+<li>求二叉树的镜像</li>
+<li>求二叉树中两个节点的最低公共祖先节点</li>
+<li>求二叉树中节点的最大距离</li>
+<li>由前序遍历序列和中序遍历序列重建二叉树<br>14.判断二叉树是不是完全二叉树</li>
+</ol>
+<h4 id="详细解答"><a href="#详细解答" class="headerlink" title="详细解答"></a>详细解答</h4><h5 id="1-求二叉树中的节点个数"><a href="#1-求二叉树中的节点个数" class="headerlink" title="1. 求二叉树中的节点个数"></a>1. 求二叉树中的节点个数</h5><h6 id="递归解法："><a href="#递归解法：" class="headerlink" title="递归解法："></a>递归解法：</h6><ul>
+<li>如果二叉树为空，节点个数为0</li>
+<li>如果二叉树不为空，二叉树节点个数=左子树节点个数+右子树节点个数+1</li>
+</ul>
+<h6 id="参考代码如下："><a href="#参考代码如下：" class="headerlink" title="参考代码如下："></a>参考代码如下：</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">GetNodeNum</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        left=self.GetNodeNum(root.left)</span><br><span class="line">        right=self.GetNodeNum(root.right)</span><br><span class="line">        <span class="keyword">return</span> left+right+<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h5 id="2-求二叉树的深度"><a href="#2-求二叉树的深度" class="headerlink" title="2. 求二叉树的深度"></a>2. 求二叉树的深度</h5><h6 id="递归解法：-1"><a href="#递归解法：-1" class="headerlink" title="递归解法："></a>递归解法：</h6><ul>
+<li>如果二叉树为空,二叉树的深度为0</li>
+<li>如果二叉树不为空,二叉树的深度=max(左子树深度，右子树深度)+1</li>
+</ul>
+<h6 id="参考代码如下：-1"><a href="#参考代码如下：-1" class="headerlink" title="参考代码如下："></a>参考代码如下：</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        left=self.maxDepth(root.left)</span><br><span class="line">        right=self.maxDepth(root.right)</span><br><span class="line">        <span class="keyword">return</span> left+<span class="number">1</span> <span class="keyword">if</span> left &gt; right <span class="keyword">else</span> right+<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h5 id="3-前序遍历，中序遍历，后序遍历"><a href="#3-前序遍历，中序遍历，后序遍历" class="headerlink" title="3. 前序遍历，中序遍历，后序遍历"></a>3. 前序遍历，中序遍历，后序遍历</h5><h6 id="前序遍历递归解法："><a href="#前序遍历递归解法：" class="headerlink" title="前序遍历递归解法："></a>前序遍历递归解法：</h6><ul>
+<li>如果二叉树为空，空操作</li>
+<li>如果二叉树不为空，访问根节点，前序遍历左子树，前序遍历右子树</li>
+</ul>
+<h6 id="参考代码如下：-2"><a href="#参考代码如下：-2" class="headerlink" title="参考代码如下："></a>参考代码如下：</h6><ul>
+<li><p>递归写法</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">PreOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">print</span> root.val   // 访问根节点</span><br><span class="line">        self.PreOrderTraverse(root.left)  //前序遍历左子树</span><br><span class="line">        self.PreOrderTraverse(root.right)   //  前序遍历右子树</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非递归写法<br>preOrder每次都将遇到的节点压入栈，当左子树遍历完毕后才从栈中弹出最后一个访问的节点，访问其右子树。在同一层中，不可能同时有两个节点压入栈，因此栈的大小空间为O(h)，h为二叉树高度。时间方面，每个节点都被压入栈一次，弹出栈一次，访问一次，复杂度为O(n)。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">PreOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myStack = []</span><br><span class="line">        node = root</span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">or</span> myStack:</span><br><span class="line">            <span class="keyword">while</span> node:</span><br><span class="line">                <span class="comment"># 从根节点开始，一直找它的左子树</span></span><br><span class="line">                <span class="keyword">print</span> node.val</span><br><span class="line">                myStack.append(node)</span><br><span class="line">                node = node.left</span><br><span class="line">            <span class="comment"># while结束表示当前节点node为空，即前一个节点没有左子树了</span></span><br><span class="line">            node = myStack.pop()</span><br><span class="line">            <span class="comment"># 开始查看它的右子树</span></span><br><span class="line">            node = node.right</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h6 id="中序遍历递归解法"><a href="#中序遍历递归解法" class="headerlink" title="中序遍历递归解法"></a>中序遍历递归解法</h6><ul>
+<li>如果二叉树为空，空操作。</li>
+<li>如果二叉树不为空，中序遍历左子树，访问根节点，中序遍历右子树</li>
+</ul>
+<h6 id="参考代码如下：-3"><a href="#参考代码如下：-3" class="headerlink" title="参考代码如下："></a>参考代码如下：</h6><ul>
+<li><p>递归写法</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">InOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.InOrderTraverse(root.left)  //前序遍历左子树</span><br><span class="line">        <span class="keyword">print</span> root.val   // 访问根节点</span><br><span class="line">        self.InOrderTraverse(root.right)   //  前序遍历右子树</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非递归写法<br>根据上面的先序遍历，可以类似的构造出中序遍历。仔细想一下，只有第一种方法改过来时最方便的。需要的改动仅仅调换一下节点访问的次序，先序是先访问，再入栈；而中序则是先入栈，弹栈后再访问。代码如下。时间复杂度与空间复杂度同先序一致。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">PreOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myStack = []</span><br><span class="line">        node = root</span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">or</span> myStack:</span><br><span class="line">            <span class="keyword">while</span> node:</span><br><span class="line">                <span class="comment"># 从根节点开始，一直找它的左子树</span></span><br><span class="line">                myStack.append(node)</span><br><span class="line">                node = node.left</span><br><span class="line">            <span class="comment"># while结束表示当前节点node为空，即前一个节点没有左子树了</span></span><br><span class="line">            node = myStack.pop()</span><br><span class="line">            <span class="keyword">print</span> node.val</span><br><span class="line">            <span class="comment"># 开始查看它的右子树</span></span><br><span class="line">            node = node.right</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h6 id="后序遍历递归解法"><a href="#后序遍历递归解法" class="headerlink" title="后序遍历递归解法"></a>后序遍历递归解法</h6><ul>
+<li>如果二叉树为空，空操作</li>
+<li>如果二叉树不为空，后序遍历左子树，后序遍历右子树，访问根节点  </li>
+</ul>
+<h6 id="参考代码如下：-4"><a href="#参考代码如下：-4" class="headerlink" title="参考代码如下："></a>参考代码如下：</h6><ul>
+<li><p>递归写法</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">PostOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.PostOrderTraverse(root.left)  //前序遍历左子树</span><br><span class="line">        self.PostOrderTraverse(root.right)   //  前序遍历右子树</span><br><span class="line">        <span class="keyword">print</span> root.val   // 访问根节点</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非递归写法<br>从直觉上来说，后序遍历对比中序遍历难度要增大很多。因为中序遍历节点序列有一点的连续性，而后续遍历则感觉有一定的跳跃性。先左，再右，最后才中间节点；访问左子树后，需要跳转到右子树，右子树访问完毕了再回溯至根节点并访问之，代码如下：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">PreOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line">        myStack = []</span><br><span class="line">        node = root</span><br><span class="line">        myStack1.append(node)</span><br><span class="line">        <span class="keyword">while</span> myStack:</span><br><span class="line">        <span class="comment"># 这个while循环的功能是找出后序遍历的逆序，存在res里面</span></span><br><span class="line">            node = myStack.pop()</span><br><span class="line">            <span class="keyword">if</span> node.left:</span><br><span class="line">                myStack.append(node.left)</span><br><span class="line">            <span class="keyword">if</span> node.right:</span><br><span class="line">                myStack.append(node.right)</span><br><span class="line">            res.append(node.val)</span><br><span class="line">        <span class="comment"># 将res中的元素出栈，即为后序遍历次序</span></span><br><span class="line">        <span class="keyword">return</span> res[::<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="4-分层遍历二叉树（按层次从上往下，从左往右）"><a href="#4-分层遍历二叉树（按层次从上往下，从左往右）" class="headerlink" title="4.分层遍历二叉树（按层次从上往下，从左往右）"></a>4.分层遍历二叉树（按层次从上往下，从左往右）</h4><p>相当于广度优先搜索，使用队列实现。队列初始化，将根节点压入队列。当队列不为空，进行如下操作：弹出一个节点，访问，若左子节点或右子节点不为空，将其压入队列。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">PreOrderTraverse</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myQueue=[]</span><br><span class="line">        node=root</span><br><span class="line">        myQueue.append(node)</span><br><span class="line">        <span class="keyword">while</span> myQueue:</span><br><span class="line">            node=myQueue.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">print</span> node.val</span><br><span class="line">            <span class="keyword">if</span> node.left:</span><br><span class="line">                myQueue.append(node.left)</span><br><span class="line">            <span class="keyword">if</span> node.right:</span><br><span class="line">                myQueue.append(node.right)</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-将二叉查找树变为有序的双向链表"><a href="#5-将二叉查找树变为有序的双向链表" class="headerlink" title="5. 将二叉查找树变为有序的双向链表"></a>5. 将二叉查找树变为有序的双向链表</h4><p>要求不能创建新节点，只调整指针。</p>
+<h5 id="递归解法：-2"><a href="#递归解法：-2" class="headerlink" title="递归解法："></a>递归解法：</h5><ul>
+<li>如果二叉树查找树为空，不需要转换，对应双向链表的第一个节点是NULL，最后一个节点是NULL</li>
+<li>如果二叉查找树不为空：<br>如果左子树为空，对应双向有序链表的第一个节点是根节点，左边不需要其他操作；<br>如果左子树不为空，转换左子树，二叉查找树对应双向有序链表的第一个节点就是左子树转换后双向有序链表的第一个节点，同时将根节点和左子树转换后的双向有序链 表的最后一个节点连接；<br>如果右子树为空，对应双向有序链表的最后一个节点是根节点，右边不需要其他操作；<br>如果右子树不为空，对应双向有序链表的最后一个节点就是右子树转换后双向有序链表的最后一个节点，同时将根节点和右子树转换后的双向有序链表的第一个节点连接。  </li>
+</ul>
+<h5 id="参考代码如下：-5"><a href="#参考代码如下：-5" class="headerlink" title="参考代码如下："></a>参考代码如下：</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="6-求二叉树第K层的节点个数"><a href="#6-求二叉树第K层的节点个数" class="headerlink" title="6. 求二叉树第K层的节点个数"></a>6. 求二叉树第K层的节点个数</h4><h5 id="递归解法：-3"><a href="#递归解法：-3" class="headerlink" title="递归解法："></a>递归解法：</h5><ul>
+<li>如果二叉树为空或者k&lt;1返回0</li>
+<li>如果二叉树不为空并且k==1，返回1</li>
+<li>如果二叉树不为空且k&gt;1，返回左子树中k-1层的节点个数与右子树k-1层节点个数之和</li>
+</ul>
+<h5 id="参考代码如下：-6"><a href="#参考代码如下：-6" class="headerlink" title="参考代码如下："></a>参考代码如下：</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(Object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">GetNodeNumKthLevel</span><span class="params">(self,root,k)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :type k: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root <span class="keyword">or</span> k &lt; <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> root <span class="keyword">and</span> k == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        leftSubTree=self.GetNodeNumKthLevel(root.left,k<span class="number">-1</span>)</span><br><span class="line">        rightSubTree=self.GetNodeNumKthLevel(root.right,k<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> leftSubTree+rightSubTree</span><br></pre></td></tr></table></figure>
+<h4 id="7-求二叉树中叶子节点的个数"><a href="#7-求二叉树中叶子节点的个数" class="headerlink" title="7. 求二叉树中叶子节点的个数"></a>7. 求二叉树中叶子节点的个数</h4><h5 id="递归解法：-4"><a href="#递归解法：-4" class="headerlink" title="递归解法："></a>递归解法：</h5><ul>
+<li>如果二叉树为空，返回0</li>
+<li>如果二叉树不为空且左右子树为空，返回1</li>
+<li>如果二叉树不为空，且左右子树不同时为空，返回左子树中叶子节点个数加上右子树中叶子节点个数  </li>
+</ul>
+<h5 id="参考代码如下：-7"><a href="#参考代码如下：-7" class="headerlink" title="参考代码如下："></a>参考代码如下：</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(Object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">GetLeafNodeNum</span><span class="params">(self,root)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    :type root: TreeNode</span></span><br><span class="line"><span class="string">    :rtype: int</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> root <span class="keyword">and</span> <span class="keyword">not</span> root.left <span class="keyword">and</span> <span class="keyword">not</span> root.right:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="comment"># 分别计算左右子树的叶子结点</span></span><br><span class="line">    leftLeaf=self.GetLeafNodeNum(root.left)</span><br><span class="line">    rightLeaf=self.GetLeafNodeNum(root.right)</span><br><span class="line">    <span class="keyword">return</span> leftLeaf+rightLeaf</span><br></pre></td></tr></table></figure>
+<h4 id="8-判断两棵二叉树是否结构相同"><a href="#8-判断两棵二叉树是否结构相同" class="headerlink" title="8. 判断两棵二叉树是否结构相同"></a>8. 判断两棵二叉树是否结构相同</h4><p>不考虑数据内容。结构相同意味着对应的左子树和对应的右子树都结构相同。  </p>
+<h5 id="递归解法：-5"><a href="#递归解法：-5" class="headerlink" title="递归解法："></a>递归解法：</h5><ul>
+<li>如果两棵二叉树都为空，返回真</li>
+<li>如果两棵二叉树一棵为空，另一棵不为空，返回假</li>
+<li>如果两棵二叉树都不为空，如果对应的左子树和右子树都同构返回真，其他返回假  </li>
+</ul>
+<h5 id="参考代码如下：-8"><a href="#参考代码如下：-8" class="headerlink" title="参考代码如下："></a>参考代码如下：</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(Object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">StructureCmp</span><span class="params">(self,root1,root2)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root1,root2: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: Boolean</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root1 <span class="keyword">and</span> <span class="keyword">not</span> root2:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root1 <span class="keyword">or</span> <span class="keyword">not</span> root2:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">        leftRes=self.StructureCmp(root1.left,root2.left)</span><br><span class="line">        rightRes=self.StructureCmp(root1.right,root2.right)</span><br><span class="line">        <span class="keyword">return</span> leftRes <span class="keyword">and</span> rightRes</span><br></pre></td></tr></table></figure>
+<h4 id="9-判断二叉树是不是平衡二叉树"><a href="#9-判断二叉树是不是平衡二叉树" class="headerlink" title="9. 判断二叉树是不是平衡二叉树"></a>9. 判断二叉树是不是平衡二叉树</h4><h5 id="递归解法：-6"><a href="#递归解法：-6" class="headerlink" title="递归解法："></a>递归解法：</h5><ul>
+<li>如果二叉树为空，返回真</li>
+<li>如果二叉树不为空，如果左子树和右子树都是AVL树并且左子树和右子树高度相差不大于1，返回真，其他返回假</li>
+</ul>
+<h5 id="参考代码："><a href="#参考代码：" class="headerlink" title="参考代码："></a>参考代码：</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(Object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">IsAVL</span><span class="params">(self,root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: Boolean</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">        leftSubTree=self.IsAVL(root.left)</span><br><span class="line">        rightSubTree=self.IsAVL(root.right)</span><br><span class="line">        <span class="keyword">return</span> leftSubTree <span class="keyword">and</span> rightSubTree</span><br></pre></td></tr></table></figure>
+<p>[cpp] view plain copy</p>
+<ol>
+<li>bool IsAVL(BinaryTreeNode * pRoot, int &amp; height)  </li>
+<li>{  </li>
+<li>if(pRoot == NULL) // 空树，返回真  </li>
+<li>{  </li>
+<li>height = 0;  </li>
+<li>return true;  </li>
+<li>}  </li>
+<li>int heightLeft;  </li>
+<li>bool resultLeft = IsAVL(pRoot-&gt;m_pLeft, heightLeft);  </li>
+<li>int heightRight;  </li>
+<li>bool resultRight = IsAVL(pRoot-&gt;m_pRight, heightRight);  </li>
+<li>if(resultLeft &amp;&amp; resultRight &amp;&amp; abs(heightLeft - heightRight) &lt;= 1) // 左子树和右子树都是AVL，并且高度相差不大于1，返回真  </li>
+<li>{  </li>
+<li>height = max(heightLeft, heightRight) + 1;  </li>
+<li>return true;  </li>
+<li>}  </li>
+<li>else  </li>
+<li>{  </li>
+<li>height = max(heightLeft, heightRight) + 1;  </li>
+<li>return false;  </li>
+<li>}  </li>
+<li>}  <ol start="10">
+<li>求二叉树的镜像<br>递归解法：<br>（1）如果二叉树为空，返回空<br>（2）如果二叉树不为空，求左子树和右子树的镜像，然后交换左子树和右子树<br>参考代码如下：<br>[cpp] view plain copy</li>
+</ol>
+</li>
+<li>BinaryTreeNode <em> Mirror(BinaryTreeNode </em> pRoot)  </li>
+<li>{  </li>
+<li>if(pRoot == NULL) // 返回NULL  </li>
+<li>return NULL;  </li>
+<li>BinaryTreeNode * pLeft = Mirror(pRoot-&gt;m_pLeft); // 求左子树镜像  </li>
+<li>BinaryTreeNode * pRight = Mirror(pRoot-&gt;m_pRight); // 求右子树镜像  </li>
+<li>// 交换左子树和右子树  </li>
+<li>pRoot-&gt;m_pLeft = pRight;  </li>
+<li>pRoot-&gt;m_pRight = pLeft;  </li>
+<li>return pRoot;  </li>
+<li>}  <ol start="11">
+<li>求二叉树中两个节点的最低公共祖先节点<br>递归解法：<br>（1）如果两个节点分别在根节点的左子树和右子树，则返回根节点<br>（2）如果两个节点都在左子树，则递归处理左子树；如果两个节点都在右子树，则递归处理右子树<br>参考代码如下：<br>[cpp] view plain copy</li>
+</ol>
+</li>
+<li>bool FindNode(BinaryTreeNode <em> pRoot, BinaryTreeNode </em> pNode)  </li>
+<li>{  </li>
+<li>if(pRoot == NULL || pNode == NULL)  </li>
+<li>return false;  </li>
+<li></li>
+<li>if(pRoot == pNode)  </li>
+<li>return true;  </li>
+<li></li>
+<li>bool found = FindNode(pRoot-&gt;m_pLeft, pNode);  </li>
+<li>if(!found)  </li>
+<li>found = FindNode(pRoot-&gt;m_pRight, pNode);  </li>
+<li></li>
+<li>return found;  </li>
+<li>}  </li>
+<li></li>
+<li>BinaryTreeNode <em> GetLastCommonParent(BinaryTreeNode </em> pRoot,   </li>
+<li>BinaryTreeNode * pNode1,   </li>
+<li>BinaryTreeNode * pNode2)  </li>
+<li>{  </li>
+<li>if(FindNode(pRoot-&gt;m_pLeft, pNode1))  </li>
+<li>{  </li>
+<li>if(FindNode(pRoot-&gt;m_pRight, pNode2))  </li>
+<li>return pRoot;  </li>
+<li>else  </li>
+<li>return GetLastCommonParent(pRoot-&gt;m_pLeft, pNode1, pNode2);  </li>
+<li>}  </li>
+<li>else  </li>
+<li>{  </li>
+<li>if(FindNode(pRoot-&gt;m_pLeft, pNode2))  </li>
+<li>return pRoot;  </li>
+<li>else  </li>
+<li>return GetLastCommonParent(pRoot-&gt;m_pRight, pNode1, pNode2);  </li>
+<li>}  </li>
+<li>}<br>递归解法效率很低，有很多重复的遍历，下面看一下非递归解法。<br>非递归解法：<br>先求从根节点到两个节点的路径，然后再比较对应路径的节点就行，最后一个相同的节点也就是他们在二叉树中的最低公共祖先节点<br>参考代码如下：<br>[cpp] view plain copy</li>
+<li>bool GetNodePath(BinaryTreeNode <em> pRoot, BinaryTreeNode </em> pNode,   </li>
+<li>list<binarytreenode *=""> &amp; path)  </binarytreenode></li>
+<li>{  </li>
+<li>if(pRoot == pNode)  </li>
+<li>{     </li>
+<li>path.push_back(pRoot);  </li>
+<li>return true;  </li>
+<li>}  </li>
+<li>if(pRoot == NULL)  </li>
+<li>return false;  </li>
+<li>path.push_back(pRoot);  </li>
+<li>bool found = false;  </li>
+<li>found = GetNodePath(pRoot-&gt;m_pLeft, pNode, path);  </li>
+<li>if(!found)  </li>
+<li>found = GetNodePath(pRoot-&gt;m_pRight, pNode, path);  </li>
+<li>if(!found)  </li>
+<li>path.pop_back();  </li>
+<li>return found;  </li>
+<li>}  </li>
+<li>BinaryTreeNode <em> GetLastCommonParent(BinaryTreeNode </em> pRoot, BinaryTreeNode <em> pNode1, BinaryTreeNode </em> pNode2)  </li>
+<li>{  </li>
+<li>if(pRoot == NULL || pNode1 == NULL || pNode2 == NULL)  </li>
+<li>return NULL;  </li>
+<li>list&lt;BinaryTreeNode*&gt; path1;  </li>
+<li>bool bResult1 = GetNodePath(pRoot, pNode1, path1);  </li>
+<li>list&lt;BinaryTreeNode*&gt; path2;  </li>
+<li>bool bResult2 = GetNodePath(pRoot, pNode2, path2);  </li>
+<li>if(!bResult1 || !bResult2)   </li>
+<li>return NULL;  </li>
+<li>BinaryTreeNode * pLast = NULL;  </li>
+<li>list&lt;BinaryTreeNode*&gt;::const_iterator iter1 = path1.begin();  </li>
+<li>list&lt;BinaryTreeNode*&gt;::const_iterator iter2 = path2.begin();  </li>
+<li>while(iter1 != path1.end() &amp;&amp; iter2 != path2.end())  </li>
+<li>{  </li>
+<li>if(<em>iter1 == </em>iter2)  </li>
+<li>pLast = *iter1;  </li>
+<li>else  </li>
+<li>break;  </li>
+<li>iter1++;  </li>
+<li>iter2++;  </li>
+<li>}  </li>
+<li>return pLast;  </li>
+<li>}  </li>
+</ol>
+<p>在上述算法的基础上稍加变化即可求二叉树中任意两个节点的距离了。</p>
+<ol start="12">
+<li>求二叉树中节点的最大距离<br>即二叉树中相距最远的两个节点之间的距离。<br>递归解法：<br>（1）如果二叉树为空，返回0，同时记录左子树和右子树的深度，都为0<br>（2）如果二叉树不为空，最大距离要么是左子树中的最大距离，要么是右子树中的最大距离，要么是左子树节点中到根节点的最大距离+右子树节点中到根节点的最大距离，同时记录左子树和右子树节点中到根节点的最大距离。<br>参考代码如下：<br>[cpp] view plain copy<ol>
+<li>int GetMaxDistance(BinaryTreeNode * pRoot, int &amp; maxLeft, int &amp; maxRight)  </li>
+<li>{  </li>
+<li>// maxLeft, 左子树中的节点距离根节点的最远距离  </li>
+<li>// maxRight, 右子树中的节点距离根节点的最远距离  </li>
+<li>if(pRoot == NULL)  </li>
+<li>{  </li>
+<li>maxLeft = 0;  </li>
+<li>maxRight = 0;  </li>
+<li>return 0;  </li>
+<li>}  </li>
+<li>int maxLL, maxLR, maxRL, maxRR;  </li>
+<li>int maxDistLeft, maxDistRight;  </li>
+<li>if(pRoot-&gt;m_pLeft != NULL)  </li>
+<li>{  </li>
+<li>maxDistLeft = GetMaxDistance(pRoot-&gt;m_pLeft, maxLL, maxLR);  </li>
+<li>maxLeft = max(maxLL, maxLR) + 1;  </li>
+<li>}  </li>
+<li>else  </li>
+<li>{  </li>
+<li>maxDistLeft = 0;  </li>
+<li>maxLeft = 0;  </li>
+<li>}  </li>
+<li>if(pRoot-&gt;m_pRight != NULL)  </li>
+<li>{  </li>
+<li>maxDistRight = GetMaxDistance(pRoot-&gt;m_pRight, maxRL, maxRR);  </li>
+<li>maxRight = max(maxRL, maxRR) + 1;  </li>
+<li>}  </li>
+<li>else  </li>
+<li>{  </li>
+<li>maxDistRight = 0;  </li>
+<li>maxRight = 0;  </li>
+<li>}  </li>
+<li>return max(max(maxDistLeft, maxDistRight), maxLeft+maxRight);  </li>
+<li>}  </li>
+</ol>
+</li>
+<li>由前序遍历序列和中序遍历序列重建二叉树<br>二叉树前序遍历序列中，第一个元素总是树的根节点的值。中序遍历序列中，左子树的节点的值位于根节点的值的左边，右子树的节点的值位<br>于根节点的值的右边。<br>递归解法：<br>（1）如果前序遍历为空或中序遍历为空或节点个数小于等于0，返回NULL。<br>（2）创建根节点。前序遍历的第一个数据就是根节点的数据，在中序遍历中找到根节点的位置，可分别得知左子树和右子树的前序和中序遍<br>历序列，重建左右子树。<br>[cpp] view plain copy<ol>
+<li>BinaryTreeNode <em> RebuildBinaryTree(int</em> pPreOrder, int* pInOrder, int nodeNum)  </li>
+<li>{  </li>
+<li>if(pPreOrder == NULL || pInOrder == NULL || nodeNum &lt;= 0)  </li>
+<li>return NULL;  </li>
+<li>BinaryTreeNode * pRoot = new BinaryTreeNode;  </li>
+<li>// 前序遍历的第一个数据就是根节点数据  </li>
+<li>pRoot-&gt;m_nValue = pPreOrder[0];  </li>
+<li>pRoot-&gt;m_pLeft = NULL;  </li>
+<li>pRoot-&gt;m_pRight = NULL;  </li>
+<li>// 查找根节点在中序遍历中的位置，中序遍历中，根节点左边为左子树，右边为右子树  </li>
+<li>int rootPositionInOrder = -1;  </li>
+<li>for(int i = 0; i &lt; nodeNum; i++)  </li>
+<li>if(pInOrder[i] == pRoot-&gt;m_nValue)  </li>
+<li>{  </li>
+<li>rootPositionInOrder = i;  </li>
+<li>break;  </li>
+<li>}  </li>
+<li>if(rootPositionInOrder == -1)  </li>
+<li>{  </li>
+<li>throw std::exception(“Invalid input.”);  </li>
+<li>}  </li>
+<li>// 重建左子树  </li>
+<li>int nodeNumLeft = rootPositionInOrder;  </li>
+<li>int * pPreOrderLeft = pPreOrder + 1;  </li>
+<li>int * pInOrderLeft = pInOrder;  </li>
+<li>pRoot-&gt;m_pLeft = RebuildBinaryTree(pPreOrderLeft, pInOrderLeft, nodeNumLeft);  </li>
+<li>// 重建右子树  </li>
+<li>int nodeNumRight = nodeNum - nodeNumLeft - 1;  </li>
+<li>int * pPreOrderRight = pPreOrder + 1 + nodeNumLeft;  </li>
+<li>int * pInOrderRight = pInOrder + nodeNumLeft + 1;  </li>
+<li>pRoot-&gt;m_pRight = RebuildBinaryTree(pPreOrderRight, pInOrderRight, nodeNumRight);  </li>
+<li>return pRoot;  </li>
+<li>}<br>同样，有中序遍历序列和后序遍历序列，类似的方法可重建二叉树，但前序遍历序列和后序遍历序列不同恢复一棵二叉树，证明略。<br>14.判断二叉树是不是完全二叉树<br>若设二叉树的深度为h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，第 h 层所有的结点都连续集中在最左边，这就是完全<br>二叉树。<br>有如下算法，按层次（从上到下，从左到右）遍历二叉树，当遇到一个节点的左子树为空时，则该节点右子树必须为空，且后面遍历的节点左<br>右子树都必须为空，否则不是完全二叉树。<br>[cpp] view plain copy</li>
+<li>bool IsCompleteBinaryTree(BinaryTreeNode * pRoot)  </li>
+<li>{  </li>
+<li>if(pRoot == NULL)  </li>
+<li>return false;  </li>
+<li>queue<binarytreenode *=""> q;  </binarytreenode></li>
+<li>q.push(pRoot);  </li>
+<li>bool mustHaveNoChild = false;  </li>
+<li>bool result = true;  </li>
+<li>while(!q.empty())  </li>
+<li>{  </li>
+<li>BinaryTreeNode * pNode = q.front();  </li>
+<li>q.pop();  </li>
+<li>if(mustHaveNoChild) // 已经出现了有空子树的节点了，后面出现的必须为叶节点（左右子树都为空）  </li>
+<li>{  </li>
+<li>if(pNode-&gt;m_pLeft != NULL || pNode-&gt;m_pRight != NULL)  </li>
+<li>{  </li>
+<li>result = false;  </li>
+<li>break;  </li>
+<li>}  </li>
+<li>}  </li>
+<li>else  </li>
+<li>{  </li>
+<li>if(pNode-&gt;m_pLeft != NULL &amp;&amp; pNode-&gt;m_pRight != NULL)  </li>
+<li>{  </li>
+<li>q.push(pNode-&gt;m_pLeft);  </li>
+<li>q.push(pNode-&gt;m_pRight);  </li>
+<li>}  </li>
+<li>else if(pNode-&gt;m_pLeft != NULL &amp;&amp; pNode-&gt;m_pRight == NULL)  </li>
+<li>{  </li>
+<li>mustHaveNoChild = true;  </li>
+<li>q.push(pNode-&gt;m_pLeft);  </li>
+<li>}  </li>
+<li>else if(pNode-&gt;m_pLeft == NULL &amp;&amp; pNode-&gt;m_pRight != NULL)  </li>
+<li>{  </li>
+<li>result = false;  </li>
+<li>break;  </li>
+<li>}  </li>
+<li>else  </li>
+<li>{  </li>
+<li>mustHaveNoChild = true;  </li>
+<li>}  </li>
+<li>}  </li>
+<li>}  </li>
+<li>return result;  </li>
+<li>}  </li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/25/二叉树（unfinished）/" data-id="cjgt4ou5e00034czpdqydrrsj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/15/柯里化与偏函数/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          柯里化与偏函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/22/JS 数组遍历方法简单实现/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript 数组遍历方法简单实现</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/05/懒加载/">懒加载</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/22/ES6 Proxy 与 Reflect/">ES6 Proxy 与 Reflect</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/15/柯里化与偏函数/">柯里化与偏函数</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/25/二叉树（unfinished）/">数据结构——二叉树（unfinished）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/22/JS 数组遍历方法简单实现/">JavaScript 数组遍历方法简单实现</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
