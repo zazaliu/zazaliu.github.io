@@ -255,6 +255,12 @@ height:50vh;
         
             <!-- 文章页标签  -->
             
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "JavaScript">JavaScript</a>
+    
+</div>
+            
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
                 <span class="post-intro-time">2017/09/27</span>
@@ -364,7 +370,7 @@ height:50vh;
 </blockquote>
 <ul>
 <li>第一个参数：必需。字符串中要替换的子串或正则RexExp；</li>
-<li>第二个参数：必需，一个字符串值，规定了替换文本或生成替换文本的函数。 </li>
+<li>第二个参数：必需，一个字符串值，规定了替换文本或生成替换文本的函数。</li>
 <li>返回值：注意它的返回值是一个新的字符串，并没有更改原有字符串，是用 replacement 替换了 regexp 的第一次匹配或所有匹配之后得到的。<br>所以根据它的参数的不同分为很多种情况，以下一一对各种情况加以分析：</li>
 </ul>
 <h4 id="NO-1-两个参数都是字符串"><a href="#NO-1-两个参数都是字符串" class="headerlink" title="NO.1 两个参数都是字符串"></a>NO.1 两个参数都是字符串</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str1 = <span class="string">'这是一段原始文本，需要替换的内容"这要替换"！'</span>;</span><br><span class="line"><span class="keyword">var</span> newStr = str1.replace(<span class="string">'这要替换'</span>,<span class="string">'need replace'</span>);</span><br><span class="line"><span class="built_in">console</span>.log( newStr );    <span class="comment">//输出：   这是一段原始文本，需要替换的内容"need replace"！</span></span><br></pre></td></tr></table></figure>
@@ -625,10 +631,7 @@ top:50vh;
     
     
     
-    
-    
-    
-    <div class="total-archive"> Total : 11 </div>
+    <div class="total-archive"> Total : 10 </div>
     
     <div class="post-archive">
     
@@ -640,12 +643,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/05</span><a class="archive-post-title" href= "/2018/04/05/懒加载/" >懒加载</a>
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href= "/2018/04/11/HTTP 缓存/" >HTTP 缓存机制机制</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2018/03/22/ES6 Proxy 与 Reflect/" >ES6 Proxy 与 Reflect</a>
+            <span class="archive-post-date">04/05</span><a class="archive-post-title" href= "/2018/04/05/懒加载/" >懒加载</a>
         </li>
     
     
@@ -665,11 +668,6 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">10/25</span><a class="archive-post-title" href= "/2017/10/25/二叉树（unfinished）/" >数据结构——二叉树（unfinished）</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2017/10/22/JS 数组遍历方法简单实现/" >JavaScript 数组遍历方法简单实现</a>
         </li>
     
     
@@ -706,6 +704,10 @@ top:50vh;
   </div>
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="HTTP"><span class="iconfont-archer">&#xe606;</span>HTTP</span>
+    
+        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
         <span class="sidebar-tag-name" data-tags="前端优化"><span class="iconfont-archer">&#xe606;</span>前端优化</span>
     
