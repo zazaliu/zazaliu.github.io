@@ -316,21 +316,28 @@
     
     
         <article class="index-post">
-            <a class="abstract-title" href = "/2017/08/05/字符编码之ASCII，Unicode与UTF/" >
+            <a class="abstract-title" href = "/2018/03/22/ES6-Proxy-与-Reflect/" >
                 
-                    <span>字符编码之ASCII，Unicode与UTF</span>
+                    <span>ES6 Proxy 与 Reflect</span>
             </a>
             <div class="abstract-content">
-                一、ASCII 码我们知道，计算机内部，所有信息最终都是一个二进制值。每一个二进制位（bit）有0和1两种状态，因此八个二进制位就可以组合出256种状态，这被称为一个字节（byte）。也就是说，一个字节一共可以用来表示256种不同的状态，每一个状态对应一个符号，就是256个符号，从00000000到11111111。
-上个世纪60年代，美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为 ASCII 码，一直沿用至今。
-ASCII 码一共规定了128个字符的编码，比如空格SPACE是32（二进制00100000），大写的字母A是65（二进制01000001）。这...
+                1.Proxy 与 Reflect1.1 ProxyProxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程。Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。
+12345678910var obj = new Proxy(&#123;&#125;, &#123;  get: function (target, key, receiver) &#123;    console.log(`getting...
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
                 <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/05</span>
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/03/22</span>
                 </div>
                 <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "JavaScript">JavaScript</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ES6">ES6</a>
+    
+</div>
                 
             </div>
         </article>

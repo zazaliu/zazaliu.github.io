@@ -316,6 +316,35 @@
     
     
         <article class="index-post">
+            <a class="abstract-title" href = "/2018/03/22/ES6-Proxy-与-Reflect/" >
+                
+                    <span>ES6 Proxy 与 Reflect</span>
+            </a>
+            <div class="abstract-content">
+                1.Proxy 与 Reflect1.1 ProxyProxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程。Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。
+12345678910var obj = new Proxy(&#123;&#125;, &#123;  get: function (target, key, receiver) &#123;    console.log(`getting...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/03/22</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "JavaScript">JavaScript</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ES6">ES6</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
             <a class="abstract-title" href = "/2018/03/15/柯里化与偏函数/" >
                 
                     <span>柯里化与偏函数</span>
@@ -652,7 +681,27 @@ bind返回的绑定函数也能使用new操作符创...
     
     
     
-    <div class="total-archive"> Total : 9 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 11 </div>
     
     <div class="post-archive">
     
@@ -665,6 +714,11 @@ bind返回的绑定函数也能使用new操作符创...
     
         <li class="archive-post-item">
             <span class="archive-post-date">04/05</span><a class="archive-post-title" href= "/2018/04/05/懒加载/" >懒加载</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2018/03/22/ES6-Proxy-与-Reflect/" >ES6 Proxy 与 Reflect</a>
         </li>
     
     
@@ -684,6 +738,11 @@ bind返回的绑定函数也能使用new操作符创...
     
         <li class="archive-post-item">
             <span class="archive-post-date">10/25</span><a class="archive-post-title" href= "/2017/10/25/二叉树（unfinished）/" >数据结构——二叉树（unfinished）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2017/10/22/经典排序算法Python实现/" >经典排序算法 Python 实现</a>
         </li>
     
     
@@ -723,7 +782,13 @@ bind返回的绑定函数也能使用new操作符创...
     
         <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
+        <span class="sidebar-tag-name" data-tags="ES6"><span class="iconfont-archer">&#xe606;</span>ES6</span>
+    
         <span class="sidebar-tag-name" data-tags="前端优化"><span class="iconfont-archer">&#xe606;</span>前端优化</span>
+    
+        <span class="sidebar-tag-name" data-tags="排序算法"><span class="iconfont-archer">&#xe606;</span>排序算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

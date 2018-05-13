@@ -344,6 +344,35 @@
     
     
         <article class="index-post">
+            <a class="abstract-title" href = "/2018/03/22/ES6-Proxy-与-Reflect/" >
+                
+                    <span>ES6 Proxy 与 Reflect</span>
+            </a>
+            <div class="abstract-content">
+                1.Proxy 与 Reflect1.1 ProxyProxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程。Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。
+12345678910var obj = new Proxy(&#123;&#125;, &#123;  get: function (target, key, receiver) &#123;    console.log(`getting...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/03/22</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "JavaScript">JavaScript</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ES6">ES6</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
             <a class="abstract-title" href = "/2018/03/15/柯里化与偏函数/" >
                 
                     <span>柯里化与偏函数</span>
@@ -390,6 +419,42 @@ In mathematics and computer science, currying is the technique of translating th
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/10/25</span>
                 </div>
                 <!-- tags  -->
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2017/10/22/经典排序算法Python实现/" >
+                
+                    <span>经典排序算法 Python 实现</span>
+            </a>
+            <div class="abstract-content">
+                本文整理并用Python实现了几种经典排序算法，包括冒泡排序，选择排序，插入排序，堆排序，快速排序，归并排序。（默认排序结果为从小到大）  
+1-冒泡排序 bubbleSort()介绍依次遍历所要排序的数列，比较相邻两个元素，如果顺序错误则交换位置。  
+步骤
+比较相邻两个元素，如果前一个大于后一个，则交换两个元素位置
+从第0到第n-1个元素重复步骤一，则一次遍历结束时，最大元素即到达数列最后位置
+依次重复步骤一二，除了最后一个元素（已排序）
+依次减少遍历数据，每次减少上次便利的最后一个数据，直至需要遍历的元素为一个，此时排序结束
+
+实现123456789def bubble_sort(...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/10/22</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "排序算法">排序算法</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Python">Python</a>
+    
+</div>
                 
             </div>
         </article>
@@ -536,29 +601,11 @@ bind返回的绑定函数也能使用new操作符创...
             </div>
         </article>
     
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2017/08/05/字符编码之ASCII，Unicode与UTF/" >
-                
-                    <span>字符编码之ASCII，Unicode与UTF</span>
-            </a>
-            <div class="abstract-content">
-                一、ASCII 码我们知道，计算机内部，所有信息最终都是一个二进制值。每一个二进制位（bit）有0和1两种状态，因此八个二进制位就可以组合出256种状态，这被称为一个字节（byte）。也就是说，一个字节一共可以用来表示256种不同的状态，每一个状态对应一个符号，就是256个符号，从00000000到11111111。
-上个世纪60年代，美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为 ASCII 码，一直沿用至今。
-ASCII 码一共规定了128个字符的编码，比如空格SPACE是32（二进制00100000），大写的字母A是65（二进制01000001）。这...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/05</span>
-                </div>
-                <!-- tags  -->
-                
-            </div>
-        </article>
-    
     <!-- paginator  -->
+    
+    <nav class="page-nav">
+        <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">NEXT &#62;</a>
+    </nav>
     
 </main>
             <!-- profile -->
@@ -743,7 +790,27 @@ ASCII 码一共规定了128个字符的编码，比如空格SPACE是32（二进�
     
     
     
-    <div class="total-archive"> Total : 9 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 11 </div>
     
     <div class="post-archive">
     
@@ -756,6 +823,11 @@ ASCII 码一共规定了128个字符的编码，比如空格SPACE是32（二进�
     
         <li class="archive-post-item">
             <span class="archive-post-date">04/05</span><a class="archive-post-title" href= "/2018/04/05/懒加载/" >懒加载</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2018/03/22/ES6-Proxy-与-Reflect/" >ES6 Proxy 与 Reflect</a>
         </li>
     
     
@@ -775,6 +847,11 @@ ASCII 码一共规定了128个字符的编码，比如空格SPACE是32（二进�
     
         <li class="archive-post-item">
             <span class="archive-post-date">10/25</span><a class="archive-post-title" href= "/2017/10/25/二叉树（unfinished）/" >数据结构——二叉树（unfinished）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2017/10/22/经典排序算法Python实现/" >经典排序算法 Python 实现</a>
         </li>
     
     
@@ -814,7 +891,13 @@ ASCII 码一共规定了128个字符的编码，比如空格SPACE是32（二进�
     
         <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
+        <span class="sidebar-tag-name" data-tags="ES6"><span class="iconfont-archer">&#xe606;</span>ES6</span>
+    
         <span class="sidebar-tag-name" data-tags="前端优化"><span class="iconfont-archer">&#xe606;</span>前端优化</span>
+    
+        <span class="sidebar-tag-name" data-tags="排序算法"><span class="iconfont-archer">&#xe606;</span>排序算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
