@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>JavaScript 数组遍历方法简单实现 · zazaliu&#39;s Studio</title>
+    <title>一道拍平数组的面试题 · zazaliu&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -207,7 +207,7 @@
                 <a href="/" >zazaliu&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">JavaScript 数组遍历方法简单实现</a>
+                <a href="#" class="post-name">一道拍平数组的面试题</a>
             </div>
     </div>
     
@@ -239,7 +239,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            JavaScript 数组遍历方法简单实现
+            一道拍平数组的面试题
             <!-- 404 -->
             
         </h1>
@@ -263,7 +263,7 @@ height:50vh;
             
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2017/10/13</span>
+                <span class="post-intro-time">2018/04/13</span>
                 
                 <span class="shareWrapper">
                     <span class="iconfont-archer shareIcon">&#xe71d;</span>
@@ -364,10 +364,15 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="Array-prototype-forEach"><a href="#Array-prototype-forEach" class="headerlink" title="Array.prototype.forEach()"></a>Array.prototype.forEach()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="built_in">Array</span>.prototype.forEach)&#123;</span><br><span class="line">    <span class="built_in">Array</span>.prototype.forEach = <span class="function"><span class="keyword">function</span>(<span class="params">callback,context</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> target = <span class="built_in">Object</span>(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">var</span> len = target.length;</span><br><span class="line">        <span class="keyword">var</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(k &lt; len)&#123;</span><br><span class="line">            <span class="keyword">if</span>(k <span class="keyword">in</span> target)&#123;</span><br><span class="line">                callback.call(context,target[k],k,target);</span><br><span class="line">            &#125;</span><br><span class="line">            k++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Array-prototype-map"><a href="#Array-prototype-map" class="headerlink" title="Array.prototype.map()"></a>Array.prototype.map()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="built_in">Array</span>.prototype.map)&#123;</span><br><span class="line">    <span class="built_in">Array</span>.prototype.map = <span class="function"><span class="keyword">function</span>(<span class="params">callback,context</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> target = <span class="built_in">Object</span>(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">var</span> len = target.length;</span><br><span class="line">        <span class="keyword">var</span> k = <span class="number">0</span>, arr = [];</span><br><span class="line">        <span class="keyword">while</span>(k &lt; len)&#123;</span><br><span class="line">            <span class="keyword">if</span>(k <span class="keyword">in</span> target)&#123;</span><br><span class="line">                arr.push(callback.call(context,target[k],k,target));</span><br><span class="line">            &#125;</span><br><span class="line">            k++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Array-prototype-filter"><a href="#Array-prototype-filter" class="headerlink" title="Array.prototype.filter()"></a>Array.prototype.filter()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="built_in">Array</span>.prototype.filter)&#123;</span><br><span class="line">    <span class="built_in">Array</span>.prototype.filter = <span class="function"><span class="keyword">function</span>(<span class="params">calback,context</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> target = <span class="built_in">Object</span>(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">var</span> len = target.length;</span><br><span class="line">        <span class="keyword">var</span> k = <span class="number">0</span>, arr = [];</span><br><span class="line">        <span class="keyword">while</span>(k &lt; len)&#123;</span><br><span class="line">            <span class="keyword">if</span>(k <span class="keyword">in</span> target)&#123;</span><br><span class="line">                callback.call(context,target[k],k,target) &amp;&amp; arr.push(target[k])</span><br><span class="line">            &#125;</span><br><span class="line">            k++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Array-prototype-reduce"><a href="#Array-prototype-reduce" class="headerlink" title="Array.prototype.reduce()"></a>Array.prototype.reduce()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="built_in">Array</span>.prototype.reduce)&#123;</span><br><span class="line">    <span class="built_in">Array</span>.prototype.reduce = <span class="function"><span class="keyword">function</span>(<span class="params">callback,initialValue</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> target = <span class="built_in">Object</span>(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">var</span> len = target.length;</span><br><span class="line">        <span class="keyword">var</span> initial = initialValue || target[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">var</span> k = !!initialValue?<span class="number">0</span>:<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(k &lt; len)&#123;</span><br><span class="line">            <span class="keyword">if</span>(k <span class="keyword">in</span> target)&#123;</span><br><span class="line">                initial = callback(initial,target[k],k,target);</span><br><span class="line">            &#125;</span><br><span class="line">            k++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> initial;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <ul>
+<li>编写一个 JavaScript 函数，接受一个仅包含数字的 多维数组 ，返回拍平以后的结果。例如传入：[1, [[2], 3, 4], 5]，返回 [1, 2, 3, 4, 5]。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> flatten = <span class="function"><span class="params">arr</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> arr.reduce(<span class="function">(<span class="params">a,b</span>) =&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a.concat(<span class="built_in">Array</span>.isArray(b)?flatten(b):b)</span><br><span class="line">    &#125;,[]);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">flatten([<span class="number">1</span>, [[<span class="number">2</span>], <span class="number">3</span>, <span class="number">4</span>], <span class="number">5</span>])  <span class="comment">// [1,2,3,4,5]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>编写一个 JavaScript generator 函数，接受一个仅包含数字的 多维数组 ，返回一个迭代器，可以遍历得到它拍平以后的结果。例如：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numbers = flatten2([<span class="number">1</span>, [[<span class="number">2</span>], <span class="number">3</span>, <span class="number">4</span>], <span class="number">5</span>])</span><br><span class="line">numbers.next().value <span class="comment">// =&gt; 1</span></span><br><span class="line">numbers.next().value <span class="comment">// =&gt; 2</span></span><br><span class="line">numbers.next().value <span class="comment">// =&gt; 3</span></span><br><span class="line">numbers.next().value <span class="comment">// =&gt; 4</span></span><br><span class="line">numbers.next().value <span class="comment">// =&gt; 5</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">flatten2</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span>;i &lt; arr.length;i++)&#123;</span><br><span class="line">        <span class="built_in">Array</span>.isArray(arr[i])? <span class="keyword">yield</span> *flatten2(arr[i]):<span class="keyword">yield</span> arr[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </article>
     <!-- license  -->
@@ -377,16 +382,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2017/10/22/经典排序算法Python实现/" title= 经典排序算法 Python 实现 >
-                    <div class="nextTitle">经典排序算法 Python 实现</div>
+                <a href= "/2018/05/13/HTTP缓存/" title= HTTP缓存机制 >
+                    <div class="nextTitle">HTTP缓存机制</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2017/10/09/redux 源码分析/" title= Redux 源码分析 >
-                    <div class="prevTitle">Redux 源码分析</div>
+                <a href= "/2018/04/05/懒加载/" title= 懒加载 >
+                    <div class="prevTitle">懒加载</div>
                 </a>
             
         </li>
@@ -489,7 +494,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Array-prototype-forEach"><span class="toc-number">1.</span> <span class="toc-text">Array.prototype.forEach()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Array-prototype-map"><span class="toc-number">2.</span> <span class="toc-text">Array.prototype.map()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Array-prototype-filter"><span class="toc-number">3.</span> <span class="toc-text">Array.prototype.filter()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Array-prototype-reduce"><span class="toc-number">4.</span> <span class="toc-text">Array.prototype.reduce()</span></a></li></ol>
+        
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

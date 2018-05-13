@@ -321,8 +321,7 @@
                     <span>数据结构——二叉树（unfinished）</span>
             </a>
             <div class="abstract-content">
-                树是一种比较重要的数据结构，尤其是二叉树。二叉树是一种特殊的树，在二叉树中每个节点最多有两个子节点，一般称为左子节点和右子节点（或左孩子和右孩子），并且二叉树的子树有左右之分，其次序不能任意颠倒。二叉树是递归定义的，因此，与二叉树有关的题目基本都可以用递归思想解决，当然有些题目非递归解法也应该掌握，如非递归遍历节点等等。本文努力对二叉树相关题目做一个较全的整理总结。二叉树节点定义如下：  
-123456# Definition for a binary tree node.class TreeNode(object):    def __init__(self, x):        s...
+                常见数据结构————二叉树的常见操作及其 Python 实现
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -330,6 +329,14 @@
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/10/25</span>
                 </div>
                 <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "数据结构">数据结构</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Python">Python</a>
+    
+</div>
                 
             </div>
         </article>
@@ -342,15 +349,7 @@
                     <span>经典排序算法 Python 实现</span>
             </a>
             <div class="abstract-content">
-                本文整理并用Python实现了几种经典排序算法，包括冒泡排序，选择排序，插入排序，堆排序，快速排序，归并排序。（默认排序结果为从小到大）  
-1-冒泡排序 bubbleSort()介绍依次遍历所要排序的数列，比较相邻两个元素，如果顺序错误则交换位置。  
-步骤
-比较相邻两个元素，如果前一个大于后一个，则交换两个元素位置
-从第0到第n-1个元素重复步骤一，则一次遍历结束时，最大元素即到达数列最后位置
-依次重复步骤一二，除了最后一个元素（已排序）
-依次减少遍历数据，每次减少上次便利的最后一个数据，直至需要遍历的元素为一个，此时排序结束
-
-实现123456789def bubble_sort(...
+                常见数组排序算法分析与 Python 实现：冒泡排序，选择排序，插入排序，堆排序，快速排序，归并排序
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -361,9 +360,9 @@
                 
                 <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "排序算法">排序算法</a>
-    
         <a class="post-tag" href="javascript:void(0);" data-tags = "Python">Python</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "排序算法">排序算法</a>
     
 </div>
                 
@@ -378,7 +377,7 @@
                     <span>JavaScript 数组遍历方法简单实现</span>
             </a>
             <div class="abstract-content">
-                Array.prototype.forEach()12345678910111213if(!Array.prototype.forEach)&#123;    Array.prototype.forEach = function(callback,context)&#123;        var target = Object(this);        var len = target.length;        var k = 0;        while(k &lt; len)&#123;            if(k in target)&#123;           ...
+                JavaScript 中数组常见的几种遍历方法 forEach，map，filter，reduce 的简单实现
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -404,7 +403,7 @@
                     <span>Redux 源码分析</span>
             </a>
             <div class="abstract-content">
-                ReduxcombineReducers1234567891011121314// 回顾一下combineReducers的使用格式// 两个reducerconst todos = (state = INIT.todos, action) =&gt; &#123;  // ....&#125;;const filterStatus = (state = INIT.filterStatus, action) =&gt; &#123;  // ...&#125;;const appReducer = combineReducers(&#123;  todos,  filterStatus&...
+                redux 源码中几个重要方法的分析：combineReducers，createStore，applyMiddleware,combineReducer 等
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -412,6 +411,12 @@
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/10/09</span>
                 </div>
                 <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Redux">Redux</a>
+    
+</div>
                 
             </div>
         </article>
@@ -424,14 +429,7 @@
                     <span>JavaScript replace 方法详解</span>
             </a>
             <div class="abstract-content">
-                replace方法是javascript涉及到正则表达式中较为复杂的一个方法，严格上说应该是string对象的方法。只不过牵扯到正则的时候比较多一些。需要我们灵活的使用。
-
-语法：stringObj.replace(regexp/substr,replacement)；
-
-
-第一个参数：必需。字符串中要替换的子串或正则RexExp；
-第二个参数：必需，一个字符串值，规定了替换文本或生成替换文本的函数。
-返回值：注意它的返回值是一个新的字符串，并没有更改原有字符串，是用 replacement 替换了 regexp 的第一次匹配或所有匹配之后得到的。所以根据它的参数的不同分为很多种情况，以...
+                JavaScript 中字符串方法 replace 的用法详解
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -457,9 +455,7 @@
                     <span>JavaScript 数组乱序实现</span>
             </a>
             <div class="abstract-content">
-                方案一一般比较经典且流行的方案为：对对象数组采用array.sort()方法，并传入一个比较函数（comparison function），这个比较函数随机返回一个介于［－0.5， 0.5］之间的数值：
-1234var numbers = [12,4,16,3];numbers.sort(function() &#123;    return .5 - Math.random();&#125;);
-方案二1234567891011Array.prototype.shuffle = function() &#123;    var input = this;    for (var i =...
+                常见的数组乱序方式实现及其分析
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -520,9 +516,7 @@ bind返回的绑定函数也能使用new操作符创...
                     <span>字符编码之ASCII，Unicode与UTF</span>
             </a>
             <div class="abstract-content">
-                一、ASCII 码我们知道，计算机内部，所有信息最终都是一个二进制值。每一个二进制位（bit）有0和1两种状态，因此八个二进制位就可以组合出256种状态，这被称为一个字节（byte）。也就是说，一个字节一共可以用来表示256种不同的状态，每一个状态对应一个符号，就是256个符号，从00000000到11111111。
-上个世纪60年代，美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为 ASCII 码，一直沿用至今。
-ASCII 码一共规定了128个字符的编码，比如空格SPACE是32（二进制00100000），大写的字母A是65（二进制01000001）。这...
+                常见字符编码方式分析：ASCII 码，Unicode 编码，UTF-8 及其 UTF-16等
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -530,6 +524,12 @@ ASCII 码一共规定了128个字符的编码，比如空格SPACE是32（二进�
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/05</span>
                 </div>
                 <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "字符编码">字符编码</a>
+    
+</div>
                 
             </div>
         </article>
@@ -739,7 +739,49 @@ ASCII 码一共规定了128个字符的编码，比如空格SPACE是32（二进�
     
     
     
-    <div class="total-archive"> Total : 11 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 13 </div>
     
     <div class="post-archive">
     
@@ -748,6 +790,16 @@ ASCII 码一共规定了128个字符的编码，比如空格SPACE是32（二进�
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/13</span><a class="archive-post-title" href= "/2018/05/13/HTTP缓存/" >HTTP缓存机制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span><a class="archive-post-title" href= "/2018/04/13/一道拍平数组的面试题/" >一道拍平数组的面试题</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -822,11 +874,19 @@ ASCII 码一共规定了128个字符的编码，比如空格SPACE是32（二进�
     
         <span class="sidebar-tag-name" data-tags="ES6"><span class="iconfont-archer">&#xe606;</span>ES6</span>
     
+        <span class="sidebar-tag-name" data-tags="HTTP"><span class="iconfont-archer">&#xe606;</span>HTTP</span>
+    
+        <span class="sidebar-tag-name" data-tags="Redux"><span class="iconfont-archer">&#xe606;</span>Redux</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据结构"><span class="iconfont-archer">&#xe606;</span>数据结构</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+    
+        <span class="sidebar-tag-name" data-tags="字符编码"><span class="iconfont-archer">&#xe606;</span>字符编码</span>
+    
         <span class="sidebar-tag-name" data-tags="前端优化"><span class="iconfont-archer">&#xe606;</span>前端优化</span>
     
         <span class="sidebar-tag-name" data-tags="排序算法"><span class="iconfont-archer">&#xe606;</span>排序算法</span>
-    
-        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

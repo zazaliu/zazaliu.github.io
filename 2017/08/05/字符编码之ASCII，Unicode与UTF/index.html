@@ -255,6 +255,12 @@ height:50vh;
         
             <!-- 文章页标签  -->
             
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "字符编码">字符编码</a>
+    
+</div>
+            
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
                 <span class="post-intro-time">2017/08/05</span>
@@ -461,7 +467,7 @@ height:50vh;
 </blockquote>
 <p>下面，以汉字“<strong>鱼</strong>”和字符“<strong>𝌀</strong>”为例，演示如何实现UTF-16编码。</p>
 <p>“<strong>鱼</strong>”的Unicode编码是<strong>9C7C</strong>，根据上表，<strong>9C7C</strong> &lt; <strong>0x10000</strong> ，其UTF-16编码就是其Unicode编码：<strong>1001 1100 0111 1100</strong>，即<strong>0x9C7C</strong>。</p>
-<p>“<strong>𝌀</strong>”的Unicode编码是<strong>1D300</strong>，根据上表，<strong>1D300</strong> &gt; <strong>0x10000</strong>，然后减去<strong>0x10000</strong>，得到<strong>0xD300</strong>，按<strong>yyyy yyyy yyxx xxxx xxxx</strong>格式写成二进制是：<strong>0000 1101 0011 0000 0000</strong>，然后按照<strong>110110yyyyyyyyyy 110111xxxxxxxxxx</strong>格式填入，得到“<strong>𝌀</strong>”的UTF-16编码（二进制）：<strong>1101100000110100 1101111100000000</strong>，即<strong>0xD834 0xDF00</strong>。 </p>
+<p>“<strong>𝌀</strong>”的Unicode编码是<strong>1D300</strong>，根据上表，<strong>1D300</strong> &gt; <strong>0x10000</strong>，然后减去<strong>0x10000</strong>，得到<strong>0xD300</strong>，按<strong>yyyy yyyy yyxx xxxx xxxx</strong>格式写成二进制是：<strong>0000 1101 0011 0000 0000</strong>，然后按照<strong>110110yyyyyyyyyy 110111xxxxxxxxxx</strong>格式填入，得到“<strong>𝌀</strong>”的UTF-16编码（二进制）：<strong>1101100000110100 1101111100000000</strong>，即<strong>0xD834 0xDF00</strong>。</p>
 <h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><ol>
 <li><a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html" target="_blank" rel="noopener">字符编码笔记：ASCII，Unicode 和 UTF-8</a></li>
 <li><a href="https://www.jianshu.com/p/9ed19a6645df" target="_blank" rel="noopener">Unicode和UTF-8、UTF-16</a></li>
@@ -718,7 +724,49 @@ top:50vh;
     
     
     
-    <div class="total-archive"> Total : 11 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 13 </div>
     
     <div class="post-archive">
     
@@ -727,6 +775,16 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/13</span><a class="archive-post-title" href= "/2018/05/13/HTTP缓存/" >HTTP缓存机制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span><a class="archive-post-title" href= "/2018/04/13/一道拍平数组的面试题/" >一道拍平数组的面试题</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -801,11 +859,19 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="ES6"><span class="iconfont-archer">&#xe606;</span>ES6</span>
     
+        <span class="sidebar-tag-name" data-tags="HTTP"><span class="iconfont-archer">&#xe606;</span>HTTP</span>
+    
+        <span class="sidebar-tag-name" data-tags="Redux"><span class="iconfont-archer">&#xe606;</span>Redux</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据结构"><span class="iconfont-archer">&#xe606;</span>数据结构</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+    
+        <span class="sidebar-tag-name" data-tags="字符编码"><span class="iconfont-archer">&#xe606;</span>字符编码</span>
+    
         <span class="sidebar-tag-name" data-tags="前端优化"><span class="iconfont-archer">&#xe606;</span>前端优化</span>
     
         <span class="sidebar-tag-name" data-tags="排序算法"><span class="iconfont-archer">&#xe606;</span>排序算法</span>
-    
-        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
