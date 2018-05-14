@@ -3,6 +3,23 @@
 
 
     
+  <url>
+    <loc>http://yoursite.com/2018/05/13/HTTP%E7%BC%93%E5%AD%98/</loc>
+    <lastmod>2018-05-14T02:30:31.305Z</lastmod>
+    <data>
+        <display>
+        <title>HTTP缓存机制</title>
+        <pubTime>2018-05-13T10:03:56.000Z</pubTime>
+        
+        <tag>HTTP</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
     
     
   <url>
@@ -33,23 +50,6 @@
         <tag>数据结构</tag>
          
         <tag>Python</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/05/13/HTTP%E7%BC%93%E5%AD%98/</loc>
-    <lastmod>2018-05-13T10:45:58.064Z</lastmod>
-    <data>
-        <display>
-        <title>HTTP缓存机制</title>
-        <pubTime>2018-05-13T10:03:56.000Z</pubTime>
-        
-        <tag>HTTP</tag>
          
          
            
