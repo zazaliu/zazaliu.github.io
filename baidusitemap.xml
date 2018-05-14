@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://yoursite.com/2018/05/13/HTTP%E7%BC%93%E5%AD%98/</loc>
-    <lastmod>2018-05-14T02:30:31.305Z</lastmod>
+    <lastmod>2018-05-14T02:44:02.855Z</lastmod>
     <data>
         <display>
         <title>HTTP缓存机制</title>
@@ -66,9 +66,9 @@
         <title>ES6 Proxy 与 Reflect</title>
         <pubTime>2018-03-21T16:00:00.000Z</pubTime>
         
-        <tag>ES6</tag>
-         
         <tag>JavaScript</tag>
+         
+        <tag>ES6</tag>
          
          
            
