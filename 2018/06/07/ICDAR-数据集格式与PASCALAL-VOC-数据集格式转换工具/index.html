@@ -380,7 +380,7 @@ height:50vh;
 <li>测试图像集：Challenge2_Test_Task12_Images</li>
 <li>测试标注集：Challenge2_Test_Task1_GT</li>
 </ul>
-<p>标注格式：x1, y1, x2, y2, text<br>如图：<br><img src="http://ww1.sinaimg.cn/large/c26aeefely1fs0ci2pae2j20w00i0t98.jpg" alt="img1"></p>
+<p>标注格式：xmin, ymin, xmax, ymax, text</p>
 <p>举例：38, 43, 920, 215, “Tiredness”</p>
 <h4 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python ICDAR2013/trans.py</span><br></pre></td></tr></table></figure>
 <p>生成的数据集保存在 VOC2007 文件夹中</p>
@@ -393,8 +393,7 @@ height:50vh;
 <blockquote>
 <p>注：ICDAR2015 未提供测试标注集</p>
 </blockquote>
-<p>标注格式：x1,y1,x2,y1,x1,y2,x2,y2,text</p>
-<p>如图：<br><img src="http://ww1.sinaimg.cn/large/c26aeefely1fs0ci2pae2j20w00i0t98.jpg" alt="img1"></p>
+<p>标注格式：x1,y1,x2,y2,x3,y3,x4,y4,text<br>其中，x1,y1为左上角坐标,x2,y2为右上角坐标,x3,y3为右下角坐标,x4,y4为左下角坐标。</p>
 <p>举例：(### 表示文字无法辨认)</p>
 <ol>
 <li><p>377,117,463,117,465,130,378,130,Genaxis Theatre</p>
@@ -718,26 +717,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-archive"> Total : 15 </div>
     
     <div class="post-archive">
@@ -837,27 +816,27 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="HTTP"><span class="iconfont-archer">&#xe606;</span>HTTP</span>
-    
         <span class="sidebar-tag-name" data-tags="ICDAR2013数据集"><span class="iconfont-archer">&#xe606;</span>ICDAR2013数据集</span>
     
         <span class="sidebar-tag-name" data-tags="ICDAR2015 数据集"><span class="iconfont-archer">&#xe606;</span>ICDAR2015 数据集</span>
     
         <span class="sidebar-tag-name" data-tags="PASCAL_VOC 数据集"><span class="iconfont-archer">&#xe606;</span>PASCAL_VOC 数据集</span>
     
+        <span class="sidebar-tag-name" data-tags="ES6"><span class="iconfont-archer">&#xe606;</span>ES6</span>
+    
         <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
-        <span class="sidebar-tag-name" data-tags="ES6"><span class="iconfont-archer">&#xe606;</span>ES6</span>
+        <span class="sidebar-tag-name" data-tags="HTTP"><span class="iconfont-archer">&#xe606;</span>HTTP</span>
     
         <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
         <span class="sidebar-tag-name" data-tags="Redux"><span class="iconfont-archer">&#xe606;</span>Redux</span>
     
+        <span class="sidebar-tag-name" data-tags="字符编码"><span class="iconfont-archer">&#xe606;</span>字符编码</span>
+    
         <span class="sidebar-tag-name" data-tags="前端优化"><span class="iconfont-archer">&#xe606;</span>前端优化</span>
     
         <span class="sidebar-tag-name" data-tags="数据结构"><span class="iconfont-archer">&#xe606;</span>数据结构</span>
-    
-        <span class="sidebar-tag-name" data-tags="字符编码"><span class="iconfont-archer">&#xe606;</span>字符编码</span>
     
         <span class="sidebar-tag-name" data-tags="排序算法"><span class="iconfont-archer">&#xe606;</span>排序算法</span>
     

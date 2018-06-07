@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://yoursite.com/2018/06/07/ICDAR-%E6%95%B0%E6%8D%AE%E9%9B%86%E6%A0%BC%E5%BC%8F%E4%B8%8EPASCALAL-VOC-%E6%95%B0%E6%8D%AE%E9%9B%86%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2018-06-07T06:01:45.125Z</lastmod>
+    <lastmod>2018-06-07T07:38:33.619Z</lastmod>
     <data>
         <display>
         <title>ICDAR2013、ICDAR2015 数据集与 PASCALAL_VOC 数据集格式转换工具</title>
@@ -104,9 +104,9 @@
         <title>ES6 Proxy 与 Reflect</title>
         <pubTime>2018-03-21T16:00:00.000Z</pubTime>
         
-        <tag>JavaScript</tag>
-         
         <tag>ES6</tag>
+         
+        <tag>JavaScript</tag>
          
          
            
