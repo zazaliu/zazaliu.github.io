@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Python文件的__name__ · zazaliu&#39;s Studio</title>
+    <title>ICDAR2013、ICDAR2015 数据集与 PASCALAL_VOC 数据集格式转换工具 · zazaliu&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -207,7 +207,7 @@
                 <a href="/" >zazaliu&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Python文件的__name__</a>
+                <a href="#" class="post-name">ICDAR2013、ICDAR2015 数据集与 PASCALAL_VOC 数据集格式转换工具</a>
             </div>
     </div>
     
@@ -239,7 +239,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Python文件的__name__
+            ICDAR2013、ICDAR2015 数据集与 PASCALAL_VOC 数据集格式转换工具
             <!-- 404 -->
             
         </h1>
@@ -257,13 +257,17 @@ height:50vh;
             
                 <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Python">Python</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ICDAR2013数据集">ICDAR2013数据集</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ICDAR2015 数据集">ICDAR2015 数据集</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "PASCAL_VOC 数据集">PASCAL_VOC 数据集</a>
     
 </div>
             
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2017/08/17</span>
+                <span class="post-intro-time">2018/06/07</span>
                 
                 <span class="shareWrapper">
                     <span class="iconfont-archer shareIcon">&#xe71d;</span>
@@ -364,43 +368,42 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>我们经常会在 python 文件中看到 <code>if __name__ == &#39;__main__&#39;:</code> 这样的代码块，这段代码的含义基本可以概括为：</p>
+        <p>项目地址：<a href="https://github.com/zazaliu/ICDAR2PASCAL_VOC" target="_blank" rel="noopener">ICDAR2PASCAL_VOC</a></p>
+<p>常用的目标识别框架例如 faster R-CNN，SDD 等都提供了对 PASCAL VOC 数据集的接口，而针对于文本识别的数据集 ICDAR2013，ICDAR2015 等与 PASCAL VOC 数据集标注方式有一定差异，该项目就是作为一个数据集转换的小工具出现的。后续会不断完善，增加对 ICDAR 2017，COCO-text 等数据集的支持。</p>
+<h1 id="ICDAR2PASCAL-VOC"><a href="#ICDAR2PASCAL-VOC" class="headerlink" title="ICDAR2PASCAL_VOC"></a>ICDAR2PASCAL_VOC</h1><p>Convert scene text dataset ICDAR2013, ICDAR2015 to PASCAL_VOC dataset</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="克隆代码到本地"><a href="#克隆代码到本地" class="headerlink" title="克隆代码到本地"></a>克隆代码到本地</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zazaliu/ICDAR2PASCAL_VOC.git</span><br></pre></td></tr></table></figure>
+<h3 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+<h3 id="ICDAR2013-dataset-转化为-PASCAL-VOC-dataset-格式"><a href="#ICDAR2013-dataset-转化为-PASCAL-VOC-dataset-格式" class="headerlink" title="ICDAR2013 dataset 转化为 PASCAL_VOC dataset 格式"></a>ICDAR2013 dataset 转化为 PASCAL_VOC dataset 格式</h3><p>下载 ICDAR2013 dataset 解压放入 ICDAR2013 文件夹，包含：</p>
+<ul>
+<li>训练图像集：Challenge2_Training_Task12_Images</li>
+<li>训练标注集：Challenge2_Training_Task1_GT</li>
+<li>测试图像集：Challenge2_Test_Task12_Images</li>
+<li>测试标注集：Challenge2_Test_Task1_GT</li>
+</ul>
+<p>标注格式：x1, y1, x2, y2, text<br>如图：<br><img src="http://ww1.sinaimg.cn/large/c26aeefely1fs0ci2pae2j20w00i0t98.jpg" alt="img1"></p>
+<p>举例：38, 43, 920, 215, “Tiredness”</p>
+<h4 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python ICDAR2013/trans.py</span><br></pre></td></tr></table></figure>
+<p>生成的数据集保存在 VOC2007 文件夹中</p>
+<h3 id="ICDAR2015-dataset-转化为-PASCAL-VOC-dataset-格式"><a href="#ICDAR2015-dataset-转化为-PASCAL-VOC-dataset-格式" class="headerlink" title="ICDAR2015 dataset 转化为 PASCAL_VOC dataset 格式"></a>ICDAR2015 dataset 转化为 PASCAL_VOC dataset 格式</h3><p>下载 ICDAR2015 dataset 解压放入 ICDAR2015 文件夹，包含：</p>
+<ul>
+<li>训练图像集：ch4_training_images</li>
+<li>训练标注集：ch4_training_localization_transcription_gt</li>
+<li>测试图像集：ch4_test_images</li>
+</ul>
 <blockquote>
-<p>Make a script both importable and executable  </p>
+<p>注：ICDAR2015 未提供测试标注集</p>
 </blockquote>
-<p>意思就是：该文件既可以当作一个模块被其他文件导入也可以当作脚本文件直接执行。</p>
-<h3 id="name-属性"><a href="#name-属性" class="headerlink" title="__name__ 属性"></a><code>__name__</code> 属性</h3><p>所有的 python 文件都有一个内置属性 <code>__name__</code>，<code>__name__</code> 的值取决于该文件的使用方式。<br>例如有一个 <code>A.py</code> 文件，包含以下内容：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"file A's __name__: "</span>,__name__)</span><br></pre></td></tr></table></figure></p>
-<p>当将 <code>A.py</code> 文件作为一个模块导入时，<code>__name__</code> 是模块的文件名：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> A</span><br><span class="line">file A<span class="string">'s __name__: A</span></span><br></pre></td></tr></table></figure></p>
-<p>但是将 <code>A.py</code> 直接作为脚本执行，则 <code>__name__</code> 的值就是 <code>__main__</code>:<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\myFile&gt;python A.py</span><br><span class="line">file A<span class="string">'s __name__: __main__</span></span><br></pre></td></tr></table></figure></p>
-<p>现在我们回到开始提出的问题：<code>if __name__ == &#39;__main__&#39;:</code> 考虑到当该文件的 <code>__name__</code> 属性为 <code>__main__</code> 时，执行 if 当中的语句，即该 python 直接作为脚本文件执行时，运行 if 判断中的代码。<br>例如：<br>有一个 <code>hello.py</code> 文件，文件内容为：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">helloWorld</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'Hello World!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    helloWorld()</span><br></pre></td></tr></table></figure></p>
-<p>当 <code>hello.py</code> 文件作为一个模块导入时，hello() 函数不会立刻执行：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> hello</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
-<p>当 <code>hello.py</code> 文件作为一个脚本文件执行时，hello() 函数会立即执行：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\myFile&gt;python hello.py</span><br><span class="line">Hello World!</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p>title: Python文件的<strong>name</strong><br>date: 2017-08-17 15:43:17<br>tags: [Python]</p>
-<h2 id="abstract-分析-python-文件中-if-name-‘main‘-的作用"><a href="#abstract-分析-python-文件中-if-name-‘main‘-的作用" class="headerlink" title="abstract: 分析 python 文件中 if name == ‘main‘: 的作用"></a>abstract: 分析 python 文件中 if <strong>name</strong> == ‘<strong>main</strong>‘: 的作用</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p>我们经常会在 python 文件中看到 <code>if __name__ == &#39;__main__&#39;:</code> 这样的代码块，这段代码的含义基本可以概括为：</p>
-<blockquote>
-<p>Make a script both importable and executable  </p>
-</blockquote>
-<p>意思就是：该文件既可以当作一个模块被其他文件导入也可以当作脚本文件直接执行。</p>
-<h3 id="name-属性-1"><a href="#name-属性-1" class="headerlink" title="__name__ 属性"></a><code>__name__</code> 属性</h3><p>所有的 python 文件都有一个内置属性 <code>__name__</code>，<code>__name__</code> 的值取决于该文件的使用方式。<br>例如有一个 <code>A.py</code> 文件，包含以下内容：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"file A's __name__: "</span>,__name__)</span><br></pre></td></tr></table></figure></p>
-<p>当将 <code>A.py</code> 文件作为一个模块导入时，<code>__name__</code> 是模块的文件名：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> A</span><br><span class="line">file A<span class="string">'s __name__: A</span></span><br></pre></td></tr></table></figure></p>
-<p>但是将 <code>A.py</code> 直接作为脚本执行，则 <code>__name__</code> 的值就是 <code>__main__</code>:<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\myFile&gt;python A.py</span><br><span class="line">file A<span class="string">'s __name__: __main__</span></span><br></pre></td></tr></table></figure></p>
-<p>现在我们回到开始提出的问题：<code>if __name__ == &#39;__main__&#39;:</code> 考虑到当该文件的 <code>__name__</code> 属性为 <code>__main__</code> 时，执行 if 当中的语句，即该 python 直接作为脚本文件执行时，运行 if 判断中的代码。<br>例如：<br>有一个 <code>hello.py</code> 文件，文件内容为：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">helloWorld</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'Hello World!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    helloWorld()</span><br></pre></td></tr></table></figure></p>
-<p>当 <code>hello.py</code> 文件作为一个模块导入时，hello() 函数不会立刻执行：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> hello</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
-<p>当 <code>hello.py</code> 文件作为一个脚本文件执行时，hello() 函数会立即执行：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\myFile&gt;python hello.py</span><br><span class="line">Hello World!</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p>title: Python文件的<strong>name</strong><br>date: 2017-08-17 15:43:17<br>tags: [Python]</p>
-<h2 id="abstract-分析-python-文件中-if-name-‘main‘-的作用-1"><a href="#abstract-分析-python-文件中-if-name-‘main‘-的作用-1" class="headerlink" title="abstract: 分析 python 文件中 if name == ‘main‘: 的作用"></a>abstract: 分析 python 文件中 if <strong>name</strong> == ‘<strong>main</strong>‘: 的作用</h2><h3 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h3><p>我们经常会在 python 文件中看到 <code>if __name__ == &#39;__main__&#39;:</code> 这样的代码块，这段代码的含义基本可以概括为：</p>
-<blockquote>
-<p>Make a script both importable and executable  </p>
-</blockquote>
-<p>意思就是：该文件既可以当作一个模块被其他文件导入也可以当作脚本文件直接执行。</p>
-<h3 id="name-属性-2"><a href="#name-属性-2" class="headerlink" title="__name__ 属性"></a><code>__name__</code> 属性</h3><p>所有的 python 文件都有一个内置属性 <code>__name__</code>，<code>__name__</code> 的值取决于该文件的使用方式。<br>例如有一个 <code>A.py</code> 文件，包含以下内容：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"file A's __name__: "</span>,__name__)</span><br></pre></td></tr></table></figure></p>
-<p>当将 <code>A.py</code> 文件作为一个模块导入时，<code>__name__</code> 是模块的文件名：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> A</span><br><span class="line">file A<span class="string">'s __name__: A</span></span><br></pre></td></tr></table></figure></p>
-<p>但是将 <code>A.py</code> 直接作为脚本执行，则 <code>__name__</code> 的值就是 <code>__main__</code>:<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\myFile&gt;python A.py</span><br><span class="line">file A<span class="string">'s __name__: __main__</span></span><br></pre></td></tr></table></figure></p>
-<p>现在我们回到开始提出的问题：<code>if __name__ == &#39;__main__&#39;:</code> 考虑到当该文件的 <code>__name__</code> 属性为 <code>__main__</code> 时，执行 if 当中的语句，即该 python 直接作为脚本文件执行时，运行 if 判断中的代码。<br>例如：<br>有一个 <code>hello.py</code> 文件，文件内容为：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">helloWorld</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'Hello World!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    helloWorld()</span><br></pre></td></tr></table></figure></p>
-<p>当 <code>hello.py</code> 文件作为一个模块导入时，hello() 函数不会立刻执行：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> hello</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
-<p>当 <code>hello.py</code> 文件作为一个脚本文件执行时，hello() 函数会立即执行：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\myFile&gt;python hello.py</span><br><span class="line">Hello World!</span><br></pre></td></tr></table></figure></p>
+<p>标注格式：x1,y1,x2,y1,x1,y2,x2,y2,text</p>
+<p>如图：<br><img src="http://ww1.sinaimg.cn/large/c26aeefely1fs0ci2pae2j20w00i0t98.jpg" alt="img1"></p>
+<p>举例：(### 表示文字无法辨认)</p>
+<ol>
+<li><p>377,117,463,117,465,130,378,130,Genaxis Theatre</p>
+</li>
+<li><p>374,155,409,155,409,170,374,170,###</p>
+</li>
+</ol>
+<h4 id="执行-1"><a href="#执行-1" class="headerlink" title="执行"></a>执行</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python ICDAR2015/trans.py</span><br></pre></td></tr></table></figure>
+<p>生成的数据集保存在 VOC2007 文件夹中</p>
 
     </article>
     <!-- license  -->
@@ -409,17 +412,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2017/09/02/JS-bind实现/" title= JavaScript 之 bind 实现 >
-                    <div class="nextTitle">JavaScript 之 bind 实现</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2017/08/05/字符编码之ASCII，Unicode与UTF/" title= 字符编码之ASCII，Unicode与UTF >
-                    <div class="prevTitle">字符编码之ASCII，Unicode与UTF</div>
+                <a href= "/2018/05/13/HTTP缓存/" title= HTTP缓存机制 >
+                    <div class="prevTitle">HTTP缓存机制</div>
                 </a>
             
         </li>
@@ -522,7 +520,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#name-属性"><span class="toc-number">2.</span> <span class="toc-text">__name__ 属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#abstract-分析-python-文件中-if-name-‘main‘-的作用"><span class="toc-number"></span> <span class="toc-text">abstract: 分析 python 文件中 if name == ‘main‘: 的作用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述-1"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#name-属性-1"><span class="toc-number">2.</span> <span class="toc-text">__name__ 属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#abstract-分析-python-文件中-if-name-‘main‘-的作用-1"><span class="toc-number"></span> <span class="toc-text">abstract: 分析 python 文件中 if name == ‘main‘: 的作用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述-2"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#name-属性-2"><span class="toc-number">2.</span> <span class="toc-text">__name__ 属性</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ICDAR2PASCAL-VOC"><span class="toc-number">1.</span> <span class="toc-text">ICDAR2PASCAL_VOC</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">1.1.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#克隆代码到本地"><span class="toc-number">1.1.1.</span> <span class="toc-text">克隆代码到本地</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装依赖包"><span class="toc-number">1.1.2.</span> <span class="toc-text">安装依赖包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICDAR2013-dataset-转化为-PASCAL-VOC-dataset-格式"><span class="toc-number">1.1.3.</span> <span class="toc-text">ICDAR2013 dataset 转化为 PASCAL_VOC dataset 格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">执行</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICDAR2015-dataset-转化为-PASCAL-VOC-dataset-格式"><span class="toc-number">1.1.4.</span> <span class="toc-text">ICDAR2015 dataset 转化为 PASCAL_VOC dataset 格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行-1"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">执行</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

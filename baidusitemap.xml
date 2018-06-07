@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/06/07/ICDAR-%E6%95%B0%E6%8D%AE%E9%9B%86%E6%A0%BC%E5%BC%8F%E4%B8%8EPASCALAL-VOC-%E6%95%B0%E6%8D%AE%E9%9B%86%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2018-06-07T06:01:45.125Z</lastmod>
+    <data>
+        <display>
+        <title>ICDAR2013、ICDAR2015 数据集与 PASCALAL_VOC 数据集格式转换工具</title>
+        <pubTime>2018-06-07T05:43:55.000Z</pubTime>
+        
+        <tag>ICDAR2013数据集</tag>
+         
+        <tag>ICDAR2015 数据集</tag>
+         
+        <tag>PASCAL_VOC 数据集</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/08/17/python%E6%96%87%E4%BB%B6%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F/</loc>
     <lastmod>2018-05-17T08:11:26.017Z</lastmod>
     <data>
@@ -64,9 +85,9 @@
         <title>数据结构——二叉树（unfinished）</title>
         <pubTime>2017-10-24T16:00:00.000Z</pubTime>
         
-        <tag>数据结构</tag>
-         
         <tag>Python</tag>
+         
+        <tag>数据结构</tag>
          
          
            
@@ -83,9 +104,9 @@
         <title>ES6 Proxy 与 Reflect</title>
         <pubTime>2018-03-21T16:00:00.000Z</pubTime>
         
-        <tag>ES6</tag>
-         
         <tag>JavaScript</tag>
+         
+        <tag>ES6</tag>
          
          
            
